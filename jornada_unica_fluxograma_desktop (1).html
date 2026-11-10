@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142234">
+  <title>Jornada Única | Da hipótese à decisão de produto</title>
+  <style>
+    :root{--ink:#142234;--ink2:#23364d;--muted:#667484;--orange:#ed5b2a;--orange2:#ff8b4a;--cream:#faf7f2;--paper:#fffefa;--line:#dde3e7;--soft:#f2f5f6;--green:#11735b;--mint:#e6f4ed;--red:#b34042;--rose:#ffeded;--blue:#28639e;--pale-blue:#eaf3fb;--purple:#6e5ab4;--pale-purple:#f0edfa;--shadow:0 22px 80px rgba(14,28,48,.16)}
+    *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,"Aptos","Segoe UI",Arial,sans-serif;color:var(--ink)}body{background:#0b1624;overflow:hidden}button,input,select{font:inherit}button{cursor:pointer}a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid #78bdff;outline-offset:3px}
+    #viewport{position:fixed;inset:0 0 62px;display:flex;align-items:center;justify-content:center;overflow:hidden}#deck{position:relative;width:1600px;height:900px;flex:none;transform-origin:center center;background:var(--paper);box-shadow:var(--shadow)}.slide{position:absolute;inset:0;overflow:hidden;display:none;flex-direction:column;padding:74px 92px 62px;background:var(--paper)}.slide.active{display:flex}.slide.dark{color:white;background:var(--ink)}.slide.warm{background:var(--cream)}.slide.orange{background:var(--orange);color:white}
+    .slide::after{content:attr(data-section);position:absolute;bottom:30px;left:92px;font-size:13px;letter-spacing:.17em;text-transform:uppercase;color:#a0aab1;font-weight:800}.slide.dark::after,.slide.orange::after{color:rgba(255,255,255,.54)}
+    .eyebrow{font-size:16px;letter-spacing:.17em;text-transform:uppercase;font-weight:850;color:var(--orange);margin-bottom:19px}.dark .eyebrow,.orange .eyebrow{color:#ffad84}.orange .eyebrow{color:white}.headline{font-size:67px;line-height:1.09;letter-spacing:-.048em;max-width:1350px;margin:0;font-weight:830}.headline .accent{color:var(--orange)}.dark .headline .accent{color:#ff9764}.orange .headline .accent{color:#17273a}.sub{font-size:25px;line-height:1.45;color:var(--muted);max-width:1170px;margin:23px 0 0}.dark .sub,.orange .sub{color:rgba(255,255,255,.79)}.section-title{font-size:51px;line-height:1.12;letter-spacing:-.038em;font-weight:820;margin:0 0 14px}.section-lead{font-size:23px;line-height:1.4;color:var(--muted);margin:0 0 30px;max-width:1250px}.dark .section-lead{color:rgba(255,255,255,.7)}
+    .grid{display:grid;gap:21px}.cols2{grid-template-columns:repeat(2,1fr)}.cols3{grid-template-columns:repeat(3,1fr)}.cols4{grid-template-columns:repeat(4,1fr)}.colspan2{grid-column:span 2}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:26px 29px;box-shadow:0 8px 28px rgba(32,50,65,.035)}.panel.soft{background:var(--soft)}.panel.orange-tint{background:#fff0e7;border-color:#ffe0ce}.panel.dark-panel{background:var(--ink2);border-color:#435268;color:white}.panel h3{font-size:26px;margin:0 0 12px;letter-spacing:-.02em}.panel p{font-size:20px;line-height:1.42;margin:0;color:#52606f}.panel li{font-size:20px;line-height:1.4;margin-bottom:9px}.panel.dark-panel p{color:#d6dce5}.number{font-size:16px;color:var(--orange);font-weight:850;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}.metric{font-size:48px;font-weight:850;letter-spacing:-.045em}.muted{color:var(--muted)}.tiny{font-size:15px;color:var(--muted);line-height:1.35}.source{font-size:15px;color:#8a969f;margin-top:auto;padding-top:14px;line-height:1.35}.source a{text-decoration:underline;text-underline-offset:3px}.dark .source{color:#bcc6cf}.ribbon{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#fff0e7;color:#bc4e24;font-weight:800;font-size:15px;letter-spacing:.04em}.ribbon.warn{background:#fff4d9;color:#8d6513}.ribbon.green{background:#e6f4ed;color:#0c755a}.ribbon.blue{background:#eaf3fb;color:#28639e}.ribbon.light{background:rgba(255,255,255,.16);color:white}.line{height:1px;background:var(--line);margin:19px 0}.emph{font-weight:780;color:var(--ink)}.dark .emph{color:white}.callout{border-left:6px solid var(--orange);padding:19px 26px;background:#fff1e8;border-radius:0 16px 16px 0;font-size:24px;line-height:1.36}.callout strong{color:#be4b25}.quote{font-size:33px;line-height:1.3;font-weight:720;letter-spacing:-.02em}.quote-sm{font-size:24px;line-height:1.3;font-weight:700}.dim{opacity:.7}.spacer{flex:1}.split{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;min-height:0}.circle{display:flex;align-items:center;justify-content:center;border-radius:50%}.list-clean{list-style:none;padding:0;margin:0}.list-clean li{position:relative;padding-left:28px;margin-bottom:14px;font-size:22px;line-height:1.35}.list-clean li::before{content:"";position:absolute;left:0;top:12px;width:9px;height:9px;border-radius:50%;background:var(--orange)}.step-tag{display:inline-block;border-radius:8px;background:#f0f3f5;padding:8px 11px;font-size:15px;font-weight:800;color:#546579}.arrow{color:var(--orange);font-size:30px;font-weight:800}.big-number{font-size:95px;line-height:1;font-weight:870;letter-spacing:-.06em;color:var(--orange)}
+    .hero-spark{position:absolute;width:870px;height:870px;border:2px solid rgba(255,255,255,.11);border-radius:50%;right:-250px;top:10px}.hero-spark:before,.hero-spark:after{content:"";position:absolute;border:2px solid rgba(255,255,255,.12);border-radius:50%;inset:110px}.hero-spark:after{inset:230px;background:rgba(255,255,255,.05)}.hero-ring{position:absolute;right:235px;top:369px;width:114px;height:114px;background:var(--orange);border:21px solid #ffac72;border-radius:50%;box-shadow:0 0 0 30px rgba(255,255,255,.05)}
+    .top-mark{display:flex;gap:13px;align-items:center;font-weight:850;letter-spacing:.11em;font-size:17px;text-transform:uppercase}.mark-symbol{width:34px;height:34px;background:var(--orange);border-radius:11px 12px 13px 3px;transform:rotate(-12deg)}.hero-bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:end;color:#d0d9e1;font-size:19px}.hero-bottom b{color:white}.hero-title{font-size:105px;line-height:1;letter-spacing:-.06em;max-width:1070px;margin:90px 0 24px;font-weight:850}.hero-sub{max-width:820px;font-size:30px;line-height:1.35;color:#e3eaf0;margin:0}
+    .path{display:grid;grid-template-columns:repeat(6,1fr);gap:13px;margin-top:26px}.path-item{position:relative;padding:20px 16px 16px;background:white;border:1px solid var(--line);border-radius:17px;min-height:216px}.path-item:after{content:"›";position:absolute;right:-14px;top:85px;z-index:2;color:var(--orange);font-size:31px;font-weight:850}.path-item:last-child:after{display:none}.path-item b{display:block;font-size:20px;margin:8px 0}.path-item span:last-child{color:var(--muted);font-size:17px;line-height:1.34;display:block}.path-num{display:flex;justify-content:center;align-items:center;width:43px;height:43px;background:#fff0e5;border-radius:12px;color:var(--orange);font-size:20px;font-weight:850}
+    .evidence-icon{font-size:36px;margin-bottom:14px}.bad-good{display:grid;grid-template-columns:1fr 1fr;gap:22px}.bad-good .bad{background:#fff0f0;border-color:#f5caca}.bad-good .good{background:#ecf8f0;border-color:#bfe0ce}.bad-good h3{display:flex;align-items:center;gap:12px}.bad-good blockquote{font-size:22px;line-height:1.36;margin:12px 0 0;font-weight:680}.bad h3{color:var(--red)}.good h3{color:var(--green)}
+    .timeline{display:grid;grid-template-columns:150px 1fr;gap:10px 20px;margin-top:6px}.timeline .time{border-radius:12px;background:#fff1e7;color:#a34421;font-size:20px;font-weight:800;padding:11px 15px;align-self:start}.timeline .question{font-size:21px;line-height:1.37;background:#f5f7f8;border-radius:12px;padding:12px 17px}
+    .small-table{border-collapse:separate;border-spacing:0;width:100%;font-size:19px;border-radius:16px;overflow:hidden;border:1px solid var(--line)}.small-table th{text-align:left;background:#172b40;color:white;padding:16px 18px;font-size:18px}.small-table td{padding:14px 17px;border-bottom:1px solid var(--line);background:white;vertical-align:top;line-height:1.32}.small-table tr:last-child td{border-bottom:0}.small-table td:first-child{font-weight:730}.small-table.compact td{padding:12px 14px;font-size:17px}.small-table.compact th{font-size:16px;padding:13px 14px}
+    .ost{display:flex;flex-direction:column;align-items:center;gap:13px;font-size:18px}.ost .outcome{background:var(--ink);color:white;width:710px;text-align:center;padding:16px;border-radius:16px}.ost .opportunities{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%}.ost .op{background:#fff0e8;border:2px solid #f9c9ad;border-radius:14px;padding:16px;text-align:center;min-height:105px}.ost .options{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%}.ost .solution{background:#eaf2f9;border:1px solid #c8dbe9;border-radius:12px;padding:16px;text-align:center;font-size:18px}.ost small{color:var(--muted);display:block;font-size:15px;margin-bottom:6px;text-transform:uppercase;font-weight:850;letter-spacing:.08em}.ost-connector{height:19px;width:2px;background:#b7c1c9}
+    .choice{display:flex;align-items:flex-start;gap:18px;border-bottom:1px solid var(--line);padding:16px 0}.choice:last-child{border:0}.choice-icon{flex:0 0 43px;height:43px;border-radius:12px;background:#fff0e6;color:var(--orange);display:grid;place-items:center;font-size:23px;font-weight:850}.choice p{margin:4px 0;font-size:18px;color:var(--muted)}.choice h3{margin:0;font-size:22px}
+    .risk-card{border-radius:18px;padding:25px;border:1px solid var(--line);background:white;min-height:244px}.risk-card b{display:block;font-size:26px;margin-bottom:10px}.risk-card p{font-size:20px;line-height:1.38;color:var(--muted)}.risk-card .risk-label{font-size:16px;letter-spacing:.1em;font-weight:850;color:var(--orange);margin-bottom:12px;text-transform:uppercase}
+    .calc{background:var(--ink);border-radius:22px;color:white;padding:30px 38px;min-height:395px}.calc .result{font-size:82px;line-height:1;font-weight:850;letter-spacing:-.06em;color:#ffab72;margin:21px 0 2px}.calc label{font-size:18px;color:#d8e0e7;display:block;margin:16px 0 7px}.calc select,.calc input{height:48px;border:1px solid #6e7b88;border-radius:10px;padding:8px 13px;background:#fff;color:var(--ink);width:100%;font-size:18px}.calc .fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:17px}.calc .calcfoot{font-size:17px;color:#c7d0d8;line-height:1.4}
+    .gate-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.gate-item{display:flex;align-items:center;gap:14px;min-height:80px;padding:15px 20px;border:1px solid var(--line);border-radius:14px;background:white;text-align:left;color:var(--ink);font-size:19px;font-weight:740}.gate-item .check{border:2px solid #aebac4;width:29px;height:29px;border-radius:9px;flex:none;display:grid;place-items:center;font-size:18px}.gate-item[aria-pressed="true"]{background:#e8f5ee;border-color:#92cdb0}.gate-item[aria-pressed="true"] .check{background:var(--green);color:white;border-color:var(--green)}.gate-status{background:var(--ink);border-radius:19px;color:white;padding:24px 29px;display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:17px}.gate-status strong{font-size:27px}.gate-status span{color:#ccd5de;font-size:18px}.gate-status button{background:#fff;color:var(--ink);border:0;border-radius:10px;padding:11px 15px;font-weight:850}
+    .book{display:grid;grid-template-columns:80px 1fr;gap:20px;align-items:center;background:white;border:1px solid var(--line);border-radius:17px;padding:18px}.book-spine{width:75px;height:100px;border-radius:7px 12px 12px 7px;box-shadow:6px 5px 0 rgba(13,28,45,.13);background:var(--ink);position:relative}.book-spine::before{content:"";position:absolute;left:12px;top:10px;bottom:10px;width:2px;background:rgba(255,255,255,.28)}.book:nth-child(2) .book-spine{background:#df572c}.book:nth-child(3) .book-spine{background:#227e83}.book:nth-child(4) .book-spine{background:#7761a5}.book:nth-child(5) .book-spine{background:#be8741}.book h3{margin:0 0 5px;font-size:22px}.book p{margin:0;color:var(--muted);font-size:17px;line-height:1.34}.book a{font-size:15px;color:#b74c28;font-weight:800;text-underline-offset:2px}.resources{display:grid;grid-template-columns:1fr 1fr;gap:14px}.resource{padding:16px 20px;background:white;border:1px solid var(--line);border-radius:13px;font-size:19px;line-height:1.3}.resource a{color:var(--blue);font-weight:760}
+    .guide-columns{display:grid;grid-template-columns:1.24fr 1fr 1fr;gap:17px}.guide-columns .panel{padding:22px 24px}.guide-columns .panel h3{font-size:24px}.guide-columns .panel p,.guide-columns .panel li{font-size:18px;line-height:1.35}.guide-columns .panel ul{margin:0;padding-left:21px}.guide-columns .panel li{margin:0 0 10px}.guide-columns .do{background:#edf8f1;border-color:#bbddc8}.guide-columns .avoid{background:#fff1ef;border-color:#f0c8c4}.guide-columns .theory{background:#eff4fc;border-color:#bed2e9}.guide-columns .number{margin-bottom:10px}.guide-columns .do .number{color:var(--green)}.guide-columns .avoid .number{color:var(--red)}.guide-columns .theory .number{color:var(--blue)}.example-chain{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:12px;align-items:center}.example-chain .panel{padding:15px 18px;min-height:93px}.example-chain .panel p{font-size:17px}.example-chain .panel h3{font-size:19px;margin-bottom:4px}.example-chain .arrow{text-align:center}
+    #controls{position:fixed;left:0;right:0;bottom:0;height:62px;background:#101d2d;color:#e4e9ee;display:flex;align-items:center;gap:18px;padding:0 25px;z-index:20;border-top:1px solid #354054}#controls button{border:1px solid #445366;background:#233247;color:white;padding:8px 14px;border-radius:10px;font-weight:720;font-size:14px;min-width:43px}#controls button:hover{background:#34475f}#controls button:disabled{opacity:.28;cursor:default}#controls .left{display:flex;align-items:center;gap:9px}#controls .right{margin-left:auto;display:flex;gap:9px}#slideName{font-size:15px;font-weight:700;white-space:nowrap;max-width:390px;overflow:hidden;text-overflow:ellipsis}#pageCount{font-size:14px;color:#aab6c3;min-width:58px;text-align:right}#progressTrack{height:5px;width:200px;max-width:18vw;background:#384a5e;border-radius:6px;overflow:hidden}#progressBar{height:100%;width:5%;background:var(--orange);transition:width .2s}#outline{position:fixed;inset:0;background:rgba(5,14,26,.9);z-index:30;display:none;padding:55px;overflow:auto}#outline.open{display:block}#outline h2{margin:0 0 25px;color:white;font-size:34px}#outline .outline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}#outline button{border:1px solid #536173;border-radius:13px;background:#1c2a3e;text-align:left;padding:19px;color:white;min-height:95px;font-size:17px;font-weight:700}#outline button:hover{background:#30435c}#outline button small{display:block;color:#ffa071;font-size:13px;margin-bottom:7px}#notes{position:fixed;top:22px;right:22px;width:420px;max-height:calc(100vh - 106px);background:#fffefc;color:var(--ink);border-radius:17px;box-shadow:0 15px 80px rgba(0,0,0,.4);z-index:25;padding:25px;display:none;overflow:auto}#notes.open{display:block}#notes h3{margin:0 0 12px;font-size:22px}#notes p{font-size:17px;line-height:1.5;color:#4e5a67}#notes button{float:right;background:#fff0e6;border:0;color:#a94420;padding:5px 9px;border-radius:7px}
+    .source{display:none!important}.slide-actions{position:absolute;top:23px;right:89px;z-index:4;display:flex;align-items:center;gap:10px}.slide-actions button{position:static;border-radius:999px;padding:9px 16px;font-size:15px;font-weight:850;letter-spacing:.02em;box-shadow:0 4px 15px rgba(35,50,65,.05)}.pm-cue{border:1px solid #ffcfb7;background:#fff0e7;color:#b94c20}.pm-cue:hover{background:#ffe2cf}.example-cue{border:1px solid #bedaca;background:#e9f6ef;color:#147357}.example-cue:hover{background:#d6ebdf}.sources-cue{border:1px solid #cdd7e3;background:#f2f6fa;color:#375976}.sources-cue:hover{background:#e4edf5}.slide.dark .slide-actions button{background:#34435a;color:#f1e7df;border-color:#667387}#guideButton{background:#f16835!important;border-color:#f16835!important;color:white!important}#guideButton:disabled{opacity:.35!important}#exampleButton{background:#286b59!important;border-color:#286b59!important;color:white!important}#exampleButton:disabled{opacity:.35!important}#sourceButton:disabled{opacity:.35!important}
+    #guideOverlay{position:fixed;inset:0 0 62px;background:rgba(7,17,29,.84);z-index:34;display:none;align-items:center;justify-content:center;padding:28px}#guideOverlay.open{display:flex}.guide-detail{width:min(1050px,100%);max-height:100%;background:#fffefa;border-radius:24px;padding:36px 45px 32px;box-shadow:0 25px 90px rgba(0,0,0,.36);overflow:auto}.guide-detail .kicker{font-size:15px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:var(--orange)}.guide-detail h2{font-size:42px;line-height:1.13;letter-spacing:-.035em;margin:11px 0 18px}.guide-detail h3{font-size:23px;margin:0 0 12px}.guide-detail p,.guide-detail li{font-size:19px;line-height:1.42}.guide-detail ol,.guide-detail ul{padding-left:25px;margin:0}.guide-detail li{margin-bottom:9px}.guide-detail .guide-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:19px}.guide-detail .guide-box{border:1px solid var(--line);border-radius:17px;padding:22px}.guide-detail .guide-box.good{background:#eff9f3;border-color:#c6e5d2}.guide-detail .guide-box.bad{background:#fff3f1;border-color:#f1d3ce}.guide-detail .theory-box{border-radius:16px;background:#eff3fa;padding:19px 23px;margin-top:17px;font-size:19px;line-height:1.42}.guide-detail .bottomline{margin-top:17px;padding:14px 19px;background:#fff0e6;border-left:4px solid var(--orange);border-radius:0 10px 10px 0;font-size:18px}.guide-detail a{color:#1b5f9e;text-underline-offset:3px}.guide-detail #closeGuide{float:right;background:#eaeef2;border:0;border-radius:11px;padding:7px 14px;font-size:21px;color:var(--ink)}
+    .guide-tabs{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0 24px}.guide-tabs button{border:1px solid #d2dce4;border-radius:10px;background:#f2f5f7;color:#455a6a;padding:11px 17px;font-weight:820;font-size:16px}.guide-tabs button[aria-selected="true"]{background:#17334c;border-color:#17334c;color:white}.modal-page{display:none}.modal-page.active{display:block}.example-lead{padding:17px 23px;background:#f1f6fc;border-left:5px solid #477db0;border-radius:0 12px 12px 0;font-size:20px;line-height:1.4}.example-list{list-style:none!important;padding:0!important;margin:20px 0!important;display:grid;gap:12px}.example-list li{display:grid;grid-template-columns:43px 1fr;gap:15px;align-items:start;padding:13px 18px;background:#f7f9fa;border:1px solid #e0e7ec;border-radius:12px;margin:0!important}.example-count{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#fff0e7;color:#b95228;font-weight:850;font-size:19px}.example-list b{display:block;margin-bottom:4px;font-size:20px}.example-list span:last-child{font-size:18px;color:#556472}.example-output{background:#eaf6ee;border-radius:13px;padding:17px 22px;font-size:19px;line-height:1.38}.modal-source{font-size:20px;line-height:1.55;color:#445566;border:1px solid #e0e7ec;border-radius:14px;padding:23px;background:#f7f9fb}.modal-source a{font-weight:740}.guide-detail .modal-tip{font-size:16px;color:#718092;margin-top:14px}
+    .slide.fit-1{padding-top:55px;padding-bottom:40px}.slide.fit-1 .section-title{font-size:46px}.slide.fit-1 .section-lead{font-size:20px;margin-bottom:17px}.slide.fit-1 .panel{padding:20px 22px}.slide.fit-1 .panel p,.slide.fit-1 .panel li{font-size:18px;line-height:1.32}.slide.fit-1 .list-clean li{font-size:19px;line-height:1.28;margin-bottom:8px}.slide.fit-1 .callout{font-size:20px;padding:13px 18px}.slide.fit-1 .line{margin:12px 0}.slide.fit-1 .grid{gap:14px}.slide.fit-2{padding-top:47px;padding-bottom:30px}.slide.fit-2 .section-title{font-size:42px}.slide.fit-2 .section-lead{font-size:18px;margin-bottom:12px}.slide.fit-2 .panel{padding:14px 17px}.slide.fit-2 .panel h3{font-size:22px;margin-bottom:7px}.slide.fit-2 .panel p,.slide.fit-2 .panel li{font-size:17px;line-height:1.25}.slide.fit-2 .list-clean li{font-size:18px;margin-bottom:5px}.slide.fit-2 .callout{font-size:19px;padding:11px 15px}.slide.fit-2 .grid{gap:10px}
+    body[data-theme="dark"] .slide:not([data-title="Abertura"]):not([data-title="Encerramento"]){background:#142234!important;color:#f4f7fa!important}body[data-theme="dark"] .slide .section-lead,body[data-theme="dark"] .slide .sub,body[data-theme="dark"] .slide .muted{color:#c5d0db!important}body[data-theme="dark"] .slide .eyebrow{color:#ffad80}body[data-theme="dark"] .slide .panel:not(.dark-panel),body[data-theme="dark"] .slide .risk-card,body[data-theme="dark"] .slide .path-item,body[data-theme="dark"] .slide .book,body[data-theme="dark"] .slide .resource{background:#203248!important;border-color:#40556c!important;color:#f3f6fa!important}body[data-theme="dark"] .slide .panel p,body[data-theme="dark"] .slide .panel li,body[data-theme="dark"] .slide .risk-card p,body[data-theme="dark"] .slide .book p,body[data-theme="dark"] .slide .choice p,body[data-theme="dark"] .slide .path-item span:last-child{color:#c5d2de!important}body[data-theme="dark"] .slide .panel.dark-panel{background:#263b51;border-color:#4b6277}body[data-theme="dark"] .slide .callout{background:#2a3e53;color:#f1f5f9}body[data-theme="dark"] .slide .callout strong{color:#ffaf85}body[data-theme="dark"] .slide .small-table td{background:#203248;color:#f0f3f7;border-color:#3f5268}body[data-theme="dark"] .slide .small-table th{background:#324b64}body[data-theme="dark"] .slide .ost .op{background:#513d39;border-color:#8c5a47;color:#ffede5}body[data-theme="dark"] .slide .ost .solution{background:#263e55;border-color:#456781;color:#eaf4fc}body[data-theme="dark"] .slide .ost .outcome{background:#29445a}body[data-theme="dark"] .slide .choice{border-color:#40556c}body[data-theme="dark"] .slide .step-tag{background:#294157;color:#dceaf4}body[data-theme="dark"] .slide .ribbon{background:#4b352a;color:#ffd2ae}body[data-theme="dark"] .slide .ribbon.warn{background:#483a24;color:#ffdd96}body[data-theme="dark"] .slide .guide-columns .do{background:#214b40!important}body[data-theme="dark"] .slide .guide-columns .avoid{background:#51363b!important}body[data-theme="dark"] .slide .guide-columns .theory{background:#2b405d!important}body[data-theme="dark"] .slide .timeline .question{background:#233950}body[data-theme="dark"] .slide .calc{background:#22384d}body[data-theme="dark"] .slide .big-number,body[data-theme="dark"] .slide .emph{color:#f3f6fa}body[data-theme="dark"] .slide .list-clean li{color:#e6edf3}
+    body[data-theme="light"] .slide.dark:not([data-title="Abertura"]){background:#fffefa;color:#142234}body[data-theme="light"] .slide.dark:not([data-title="Abertura"]) .section-lead{color:#667484}body[data-theme="light"] .slide.dark:not([data-title="Abertura"]) .panel.dark-panel{background:#f3f6f8;color:#142234;border-color:#dbe3e8}body[data-theme="light"] .slide.dark:not([data-title="Abertura"]) .panel.dark-panel p{color:#52606f}body[data-theme="light"] .slide.dark:not([data-title="Abertura"]) .callout{background:#fff1e8;color:#142234}body[data-theme="light"] .slide.dark:not([data-title="Abertura"]) .callout strong{color:#b94c20}
+    body[data-theme="dark"] .guide-detail{background:#17293d;color:#f1f5f9}body[data-theme="dark"] .guide-detail .guide-box.good{background:#234536;border-color:#3e7556}body[data-theme="dark"] .guide-detail .guide-box.bad{background:#49313a;border-color:#79515a}body[data-theme="dark"] .guide-detail .theory-box,body[data-theme="dark"] .guide-detail .example-lead{background:#283f59;color:#e3eaf3}body[data-theme="dark"] .guide-detail .bottomline,body[data-theme="dark"] .guide-detail .example-output{background:#2f4a3d;color:#e6f5eb}body[data-theme="dark"] .guide-detail .example-list li,body[data-theme="dark"] .guide-detail .modal-source{background:#21364b;border-color:#40566d;color:#d7e2ee}body[data-theme="dark"] .guide-detail .example-list span:last-child{color:#c5d4e2}body[data-theme="dark"] .guide-detail .guide-tabs button{background:#273c53;color:#d7e2ef;border-color:#425b73}body[data-theme="dark"] .guide-detail .guide-tabs button[aria-selected="true"]{background:#f16835;color:white;border-color:#f16835}body[data-theme="dark"] .guide-detail a{color:#9bd2ff}body[data-theme="dark"] .guide-detail #closeGuide{background:#344d63;color:#fff}
+    .speaker-note{display:none}.slide.dense{padding-top:55px;padding-bottom:45px}.slide.dense .panel{padding:21px 24px}.slide.dense .list-clean li{font-size:20px;line-height:1.28;margin-bottom:9px}.slide.dense .section-title{font-size:47px}.slide.dense .source{font-size:14px;padding-top:8px}.slide.dense.fit-1 .panel{padding:18px 19px}.slide.dense.fit-2 .panel{padding:13px 16px}.slide.dense.fit-2 .section-title{font-size:42px}.slide.fit-3>:not(.slide-actions):not(.speaker-note):not(.source){zoom:var(--fit-zoom,.9)}.corner-number{position:absolute;right:88px;bottom:28px;color:#a4b0b9;font-size:15px;font-weight:800}.dark .corner-number,.orange .corner-number{color:#a7b4c3}.footer-tag{position:absolute;right:91px;top:76px;font-size:15px;letter-spacing:.1em;font-weight:800;color:#aab3ba;text-transform:uppercase}
+    #slideName{display:none}@media(max-width:1450px){#progressTrack{width:115px}}
+    @media(max-width:1200px){#controls .right button:nth-child(3),#controls .right button:nth-child(4),#controls .right button:nth-child(5){display:none}}
+    @media(max-width:800px){#controls{gap:8px;padding:0 9px}#controls .right button:nth-child(6){display:none}#progressTrack{width:75px}#notes{width:calc(100vw - 30px);right:15px;top:12px}.guide-detail{padding:25px}.guide-detail .guide-grid{grid-template-columns:1fr}.guide-detail h2{font-size:30px}}
+    @media print{@page{size:16in 9in;margin:0}html,body{width:100%;height:auto;background:white;overflow:visible}#viewport{position:static;display:block;overflow:visible}#deck{transform:none!important;width:100%;height:auto;box-shadow:none}#controls,#outline,#notes,#guideOverlay,.slide-actions{display:none!important}.slide,.slide.active{position:relative;display:flex;page-break-after:always;break-after:page;width:1600px;height:900px;zoom:.96;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+    /* Fluxo de decisão: cards navegáveis, causas explícitas e saídas de investimento. */
+    .slide.flow-slide{padding:62px 78px 54px}
+    .flow-slide .eyebrow{margin-bottom:12px}
+    .flow-slide .section-title{font-size:51px;margin-bottom:10px}
+    .flow-slide .section-lead{font-size:21px;margin-bottom:18px;max-width:1330px}
+    .flow-start{display:flex;align-items:center;gap:15px;padding:11px 18px;background:#172b40;color:white;border-radius:13px;min-height:49px;font-size:19px;line-height:1.35}
+    .flow-start b{font-size:13px;letter-spacing:.09em;text-transform:uppercase;background:#ed5b2a;padding:6px 10px;border-radius:7px;white-space:nowrap;color:#fff}
+    .flow-track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:15px;margin:17px 0 13px}
+    .flow-step{display:flex;flex-direction:column;position:relative;text-align:left;min-width:0;min-height:285px;background:#fff;border:1px solid #d4dee6;border-top:5px solid #f16b3e;border-radius:15px;padding:17px 16px 14px;color:#142234;box-shadow:0 7px 22px rgba(19,41,60,.045);transition:transform .2s,box-shadow .2s}
+    .flow-step:hover{transform:translateY(-5px);box-shadow:0 12px 34px rgba(15,38,62,.13)}
+    .flow-step:nth-child(2),.flow-step:nth-child(3){border-top-color:#3185aa}
+    .flow-step:nth-child(4),.flow-step:nth-child(5){border-top-color:#647cc2}
+    .flow-step:nth-child(6){border-top-color:#14836b}
+    .flow-step:not(:last-child)::after{content:'→';position:absolute;right:-19px;top:45%;color:#f16b3e;font-size:26px;font-weight:900;z-index:2;text-shadow:0 0 4px #fff}
+    .flow-step small{font-size:12px;font-weight:850;letter-spacing:.11em;color:#af532e;text-transform:uppercase;margin-bottom:10px}
+    .flow-step strong{font-size:21px;line-height:1.12;letter-spacing:-.025em;min-height:48px;display:block}
+    .flow-step .flow-label{display:block;font-size:12px;font-weight:860;letter-spacing:.09em;text-transform:uppercase;color:#377a8f;margin-top:13px;margin-bottom:3px}
+    .flow-step .flow-action,.flow-step .flow-why{font-size:15px;line-height:1.34;color:#405367;display:block}
+    .flow-step .flow-why{font-weight:670;color:#1e3043}
+    .flow-step .flow-link{display:block;margin-top:auto;padding-top:12px;font-size:13px;font-weight:840;color:#b64d28}
+    .flow-question{border:2px solid #f1bd9d;background:#fff0e5;display:flex;align-items:center;justify-content:center;gap:13px;padding:11px 19px;border-radius:14px;min-height:54px;font-size:19px;line-height:1.25;font-weight:790;text-align:center;color:#713b26}
+    .flow-question .diamond{width:28px;height:28px;border:3px solid #d55e30;border-radius:4px;transform:rotate(45deg);flex:none;display:grid;place-items:center}
+    .flow-question .diamond:after{content:'?';font-size:17px;transform:rotate(-45deg)}
+    .flow-outcomes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:12px}
+    .flow-outcome{border:1px solid #c6dcd1;border-radius:13px;padding:14px 16px;min-height:103px;background:#eaf8ef}
+    .flow-outcome b{display:block;font-size:15px;font-weight:870;letter-spacing:.025em;margin-bottom:5px;color:#116646}
+    .flow-outcome span{font-size:15px;line-height:1.28;color:#3a5261;display:block}
+    .flow-outcome.pivot{background:#eaf2fb;border-color:#c7d6e8}.flow-outcome.pivot b{color:#225981}
+    .flow-outcome.wait{background:#fffae8;border-color:#ead4a2}.flow-outcome.wait b{color:#926917}
+    .flow-outcome.stop{background:#fff0ef;border-color:#efcfcd}.flow-outcome.stop b{color:#b13e40}
+    .flow-caption{font-size:13px;color:#6c7b88;margin-top:9px;text-align:center;letter-spacing:.005em}
+    body[data-theme="dark"] .flow-start{background:#293f58;color:#f2f6f9}
+    body[data-theme="dark"] .flow-step{background:#21374d;border-color:#456179;color:#edf4f9}
+    body[data-theme="dark"] .flow-step:nth-child(1){border-top-color:#ff986c}body[data-theme="dark"] .flow-step:nth-child(2),body[data-theme="dark"] .flow-step:nth-child(3){border-top-color:#74c8e6}body[data-theme="dark"] .flow-step:nth-child(4),body[data-theme="dark"] .flow-step:nth-child(5){border-top-color:#b5b3fa}body[data-theme="dark"] .flow-step:nth-child(6){border-top-color:#8adeb9}
+    body[data-theme="dark"] .flow-step small,body[data-theme="dark"] .flow-step .flow-link{color:#ffc398}
+    body[data-theme="dark"] .flow-step .flow-label{color:#7ec8dc}
+    body[data-theme="dark"] .flow-step .flow-action,body[data-theme="dark"] .flow-step .flow-why{color:#d0dee9}
+    body[data-theme="dark"] .flow-step:not(:last-child)::after{text-shadow:0 0 4px #142234;color:#ffb384}
+    body[data-theme="dark"] .flow-question{background:#4a392d;border-color:#916d54;color:#f6e5cd}
+    body[data-theme="dark"] .flow-question .diamond{border-color:#f3ad74}
+    body[data-theme="dark"] .flow-outcome{background:#254538;border-color:#44735b}
+    body[data-theme="dark"] .flow-outcome.pivot{background:#273f58;border-color:#52718f}
+    body[data-theme="dark"] .flow-outcome.wait{background:#514729;border-color:#857447}
+    body[data-theme="dark"] .flow-outcome.stop{background:#53383b;border-color:#805258}
+    body[data-theme="dark"] .flow-outcome b{color:#b3f4cf}
+    body[data-theme="dark"] .flow-outcome.pivot b{color:#acd7ff}
+    body[data-theme="dark"] .flow-outcome.wait b{color:#ffe1a2}
+    body[data-theme="dark"] .flow-outcome.stop b{color:#ffc4c4}
+    body[data-theme="dark"] .flow-outcome span{color:#e0e9f0}
+    body[data-theme="dark"] .flow-caption{color:#b9cbdb}
+    .flow-slide.fit-1 .flow-step{min-height:261px;padding:13px}
+    .flow-slide.fit-1 .flow-step strong{font-size:19px;min-height:43px}
+    .flow-slide.fit-1 .flow-step .flow-action,.flow-slide.fit-1 .flow-step .flow-why{font-size:14px}
+    .flow-slide.fit-2 .flow-step{min-height:246px;padding:11px}
+    .flow-slide.fit-2 .flow-track{gap:12px;margin:10px 0}
+    .flow-slide.fit-2 .flow-outcome{min-height:86px;padding:10px}
+    .flow-slide.fit-2 .flow-outcome span{font-size:13px}
+
+    /* A capa acompanha o seletor de leitura clara/escura (antes permanecia escura). */
+    body[data-theme="light"] .slide[data-title="Abertura"] {
+      background:linear-gradient(118deg,#fffefa 0%,#f5f8fb 70%,#eaf1f7 100%) !important;
+      color:#142234 !important;
+    }
+    body[data-theme="light"] .slide[data-title="Abertura"] .top-mark,
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-title,
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-bottom,
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-bottom b {color:#142234 !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-sub {color:#425668 !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-title span {color:#c14921 !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"]::after {color:#697b89 !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-spark,
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-spark::before,
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-spark::after {border-color:rgba(39,87,127,.13) !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-spark::after {background:rgba(64,127,170,.045) !important;}
+    body[data-theme="light"] .slide[data-title="Abertura"] .hero-ring {box-shadow:0 0 0 30px rgba(237,91,42,.08) !important;}
+    body[data-theme="dark"] .slide[data-title="Abertura"] {background:#142234 !important;color:#fff !important;}
+  </style>
+</head>
+<body>
+  <main id="viewport"><div id="deck" aria-live="polite">
+
+    <section class="slide dark active" data-title="Abertura" data-section="Jornada Única / Product Discovery">
+      <div class="hero-spark"></div><div class="hero-ring"></div>
+      <div class="top-mark"><div class="mark-symbol"></div>Jornada Única <span style="opacity:.45">/</span> Product Discovery</div>
+      <h1 class="hero-title">Uma boa ideia<br>merece uma boa <span style="color:#ff9e6d">pergunta.</span></h1>
+      <p class="hero-sub">Como descobrir se existe uma dor real, medir sua relevância e decidir se vale criar um produto.</p>
+      <div class="hero-bottom"><div>Uma conversa sobre método, evidências e decisões.</div><div><b>Material de discussão</b><br>Contexto Itaú Unibanco</div></div>
+      <aside class="speaker-note">Abra pedindo uma resposta rápida: "Se amanhã tivéssemos orçamento e tecnologia, vocês começariam a desenvolver a Jornada Única? Por quê?" Guarde as respostas para comparar com o encerramento. Esta apresentação apresenta um método aplicável, sem assumir dados internos da iniciativa.</aside>
+    </section>
+
+    <section class="slide warm" data-title="O risco de começar pela solução" data-section="01 / Mudança de mentalidade">
+      <span class="eyebrow">Provocação inicial</span>
+      <h2 class="headline">Já temos um nome.<br><span class="accent">Temos um problema validado?</span></h2>
+      <div class="grid cols2" style="margin-top:53px;align-items:stretch">
+        <div class="panel" style="border-top:8px solid #ed5b2a;min-height:286px"><div class="number">O caminho impulsivo</div><div class="quote">Ideia → escopo → tecnologia → entrega</div><p style="margin-top:28px">Risco: lançar uma solução elegante para uma dor pequena, rara ou mal compreendida.</p></div>
+        <div class="panel" style="border-top:8px solid #11735b"><div class="number" style="color:var(--green)">O caminho de produto</div><div class="quote">Dor → evidência → alternativas → experimento → investimento</div><p style="margin-top:24px">A decisão de construir chega depois de reduzir as principais incertezas.</p></div>
+      </div>
+      <div class="callout" style="margin-top:26px">A pergunta de hoje: <strong>que evidência nos faria dizer “sim”, “ainda não” ou “não” à Jornada Única?</strong></div>
+      <aside class="speaker-note">O nome Jornada Única é tratado aqui como uma hipótese de produto. Evite transformar o nome em uma definição de solução. Descoberta de produto busca reduzir risco antes de investir, não garantir sucesso.</aside>
+    </section>
+
+    <section class="slide" data-title="Do problema ao aprendizado" data-section="01 / Visão de produto">
+      <span class="eyebrow">O processo ponta a ponta</span><h2 class="section-title">Seis decisões, não seis departamentos</h2>
+      <p class="section-lead">O fluxo é iterativo. Uma evidência nova pode fazer o time voltar à etapa anterior.</p>
+      <div class="path">
+        <div class="path-item"><div class="path-num">01</div><b>Enquadrar</b><span>Objetivo de negócio, público, hipótese de problema</span></div>
+        <div class="path-item"><div class="path-num">02</div><b>Explorar</b><span>Entrevistas, observação, jornada atual</span></div>
+        <div class="path-item"><div class="path-num">03</div><b>Dimensionar</b><span>Dados operacionais, pesquisa quanti, impacto</span></div>
+        <div class="path-item"><div class="path-num">04</div><b>Priorizar</b><span>Oportunidades e opções, inclusive sem novo produto</span></div>
+        <div class="path-item"><div class="path-num">05</div><b>Experimentar</b><span>Protótipo, teste de valor, viabilidade</span></div>
+        <div class="path-item"><div class="path-num">06</div><b>Aprender</b><span>MVP, métricas, decisão de expandir ou rever</span></div>
+      </div>
+      <div class="grid cols3" style="margin-top:32px">
+        <div class="panel soft"><h3>Discovery</h3><p>O que vale resolver? Para quem? Por quê?</p></div>
+        <div class="panel soft"><h3>Delivery</h3><p>Como entregar com qualidade, segurança e escala?</p></div>
+        <div class="panel soft"><h3>Outcome</h3><p>O comportamento e o resultado melhoraram de fato?</p></div>
+      </div>
+      <div class="source">Base conceitual: <a href="https://www.svpg.com/four-big-risks/" target="_blank" rel="noopener noreferrer">SVPG</a> · <a href="https://www.producttalk.org/continuous-discovery-habits-book/" target="_blank" rel="noopener noreferrer">Teresa Torres</a></div>
+      <aside class="speaker-note">Diferencie output (a funcionalidade entregue) de outcome (mudança observada). O desenho parece linear só para fins didáticos. Em prática, equipes de produto revisitam hipóteses regularmente.</aside>
+    </section>
+
+    <section class="slide warm" data-title="O papel da pessoa de Produto" data-section="01 / Guia de atuação">
+      <span class="eyebrow">Responsabilidade na prática</span><h2 class="section-title">O que uma pessoa de Produto deve fazer?</h2>
+      <p class="section-lead">Conduzir decisões sob incerteza com evidências, trabalhando junto a UX, dados, engenharia e áreas do negócio.</p>
+      <div class="grid cols2" style="margin-top:8px">
+        <div class="panel"><div class="number">01 / Antes de entrevistar</div><h3>Definir a decisão e as hipóteses</h3><p>Escrever qual problema suspeitamos existir, quem o vive, que resultado importa e qual evidência mudaria a decisão.</p></div>
+        <div class="panel"><div class="number">02 / Durante a descoberta</div><h3>Buscar evidências, inclusive contrárias</h3><p>Coordenar entrevistas e análises, comparar comportamentos e registrar dúvidas sem induzir respostas.</p></div>
+        <div class="panel"><div class="number">03 / Depois da pesquisa</div><h3>Traduzir achados em oportunidades</h3><p>Agrupar padrões, dimensionar a dor, priorizar problemas e examinar opções com o time.</p></div>
+        <div class="panel"><div class="number">04 / Antes de desenvolver</div><h3>Propor experimentos e critérios</h3><p>Selecionar o teste mínimo, definir métricas e recomendar avançar, ajustar ou interromper.</p></div>
+      </div>
+      <div class="callout" style="margin-top:22px">Em cada etapa, use <strong>“PM”</strong> para consultar a teoria e as ações, ou <strong>“Ver exemplo”</strong> para abrir uma demonstração passo a passo.</div>
+      <div class="source">Base: <a href="https://www.svpg.com/four-big-risks/" target="_blank" rel="noopener noreferrer">SVPG</a> e <a href="https://www.producttalk.org/continuous-discovery-habits-book/" target="_blank" rel="noopener noreferrer">Continuous Discovery Habits</a>.</div>
+      <aside class="speaker-note">Deixe explícito que PM não faz sozinho todas as pesquisas, o desenho e a implementação. Sua responsabilidade é manter foco no problema, coordenar aprendizado e defender boas decisões com parceiros. Convide a audiência a usar o guia contextual presente em cada slide.</aside>
+    </section>
+
+
+    <section class="slide flow-slide warm" data-title="O fluxo decisório do PM" data-section="01 / Roteiro de decisão">
+      <span class="eyebrow">Fluxograma interativo / Jornada Única</span>
+      <h2 class="section-title">Da ideia à decisão: o caminho do PM</h2>
+      <p class="section-lead">Siga as etapas na ordem lógica. Cada bloco explica <strong>o que fazer e por quê</strong> — clique para abrir a etapa com método e exemplos.</p>
+      <div class="flow-start"><b>Ponto de partida</b><span>“Queremos criar a Jornada Única.” → Isso é uma <strong>proposta de solução</strong>, ainda não uma necessidade comprovada.</span></div>
+      <div class="flow-track" role="group" aria-label="Seis passos do Product Discovery, da hipótese à decisão">
+        <button class="flow-step" type="button" data-target="As cinco hipóteses" title="Abrir o passo: formular hipóteses"><small>01 / Enquadrar</small><strong>Definir o problema</strong><span class="flow-label">O PM faz</span><span class="flow-action">Formula quem sofre, quando e qual resultado importa.</span><span class="flow-label">Por quê?</span><span class="flow-why">Sem isso, a solução dirige a pesquisa.</span><span class="flow-link">Abrir etapa ↗</span></button>
+        <button class="flow-step" type="button" data-target="Pesquisa qualitativa" title="Abrir o passo: entrevistar e observar"><small>02 / Investigar</small><strong>Ouvir e observar</strong><span class="flow-label">O PM faz</span><span class="flow-action">Entrevista perfis e mapeia episódios na jornada atual.</span><span class="flow-label">Por quê?</span><span class="flow-why">Descobre causas, não só opiniões.</span><span class="flow-link">Abrir etapa ↗</span></button>
+        <button class="flow-step" type="button" data-target="Pesquisa quantitativa" title="Abrir o passo: dimensionar o problema"><small>03 / Dimensionar</small><strong>Medir a dor</strong><span class="flow-label">O PM faz</span><span class="flow-action">Triangula survey, logs, frequência e custo.</span><span class="flow-label">Por quê?</span><span class="flow-why">Um caso marcante pode ser raro.</span><span class="flow-link">Abrir etapa ↗</span></button>
+        <button class="flow-step" type="button" data-target="Novo produto ou outra intervenção?" title="Abrir o passo: comparar alternativas"><small>04 / Comparar</small><strong>Avaliar opções</strong><span class="flow-label">O PM faz</span><span class="flow-action">Contrasta processo, legado, automação e produto novo.</span><span class="flow-label">Por quê?</span><span class="flow-why">A dor real não obriga produto novo.</span><span class="flow-link">Abrir etapa ↗</span></button>
+        <button class="flow-step" type="button" data-target="Experimentos antes do MVP" title="Abrir o passo: experimentar"><small>05 / Experimentar</small><strong>Testar antes de criar</strong><span class="flow-label">O PM faz</span><span class="flow-action">Valida valor, uso e riscos com teste pequeno.</span><span class="flow-label">Por quê?</span><span class="flow-why">Testar barato evita escalar erro.</span><span class="flow-link">Abrir etapa ↗</span></button>
+        <button class="flow-step" type="button" data-target="Decisão de investimento" title="Abrir o passo: decidir se investe"><small>06 / Decidir</small><strong>Recomendar o caminho</strong><span class="flow-label">O PM faz</span><span class="flow-action">Expõe evidências, lacunas, custo e próximos passos.</span><span class="flow-label">Por quê?</span><span class="flow-why">Investimento exige decisão rastreável.</span><span class="flow-link">Abrir etapa ↗</span></button>
+      </div>
+      <div class="flow-question"><span class="diamond" aria-hidden="true"></span><span>A dor é relevante, a alternativa escolhida é superior e os riscos são aceitáveis?</span></div>
+      <div class="flow-outcomes" role="group" aria-label="Quatro possíveis decisões de produto">
+        <div class="flow-outcome"><b>✓ SIM → PILOTO CONTROLADO</b><span>Há evidência suficiente para testar o menor recorte real, com métricas.</span></div>
+        <div class="flow-outcome pivot"><b>↗ HÁ OPÇÃO MELHOR → PIVOTAR</b><span>Resolver por processo, integração ou evolução existente.</span></div>
+        <div class="flow-outcome wait"><b>↺ INCERTEZA → INVESTIGAR</b><span>Voltar ao passo com a lacuna crítica; não presumir aprovação.</span></div>
+        <div class="flow-outcome stop"><b>✕ NÃO → NÃO CONSTRUIR</b><span>Sem dor relevante ou benefício suficiente, interromper a proposta.</span></div>
+      </div>
+      <div class="flow-caption">Fluxo iterativo, não uma sequência burocrática. Resultados e exemplos dos demais slides são fictícios.</div>
+      <aside class="speaker-note">Use este slide como mapa da apresentação. Clique nos blocos para acessar as etapas detalhadas. A pergunta decisiva não é somente se existe um problema, mas se o problema tem impacto suficiente, se construir é a melhor intervenção e se os riscos são aceitáveis. O piloto não é aprovação para escala. Exemplo didático: redigitação de informações pode justificar integração simples em vez de plataforma nova. Na decisão, cite evidências contrárias, custos e incertezas. Referências: Continuous Discovery Habits (Teresa Torres), Opportunity Solution Tree e Four Big Risks (Marty Cagan).</aside>
+    </section>
+
+    <section class="slide warm" data-title="As cinco hipóteses" data-section="02 / Formular o problema">
+      <span class="eyebrow">Antes de pesquisar</span><h2 class="section-title">O que exatamente precisamos provar?</h2>
+      <p class="section-lead">Escrever hipóteses falsificáveis torna a descoberta útil para uma decisão real.</p>
+      <div class="grid cols2" style="gap:17px">
+        <div class="panel"><div class="number">H1 / Existência</div><h3>Existe uma dificuldade observável?</h3><p>Quais episódios concretos mostram essa dor?</p></div>
+        <div class="panel"><div class="number">H2 / Relevância</div><h3>Ela ocorre com frequência e custo?</h3><p>Quem é afetado, quanto tempo perde, quais erros surgem?</p></div>
+        <div class="panel"><div class="number">H3 / Prioridade</div><h3>Resolver isso supera outras necessidades?</h3><p>Oportunidade versus esforço, riscos e alternativas.</p></div>
+        <div class="panel"><div class="number">H4 / Adoção</div><h3>As pessoas mudariam o comportamento?</h3><p>Conseguem e querem usar a solução em sua rotina?</p></div>
+      </div>
+      <div class="callout" style="margin-top:20px"><strong>H5 / Necessidade de produto:</strong> a dor exige construir algo novo ou cabe melhorar processo, treinamento ou ferramenta existente?</div>
+      <aside class="speaker-note">Peça ao grupo que formule uma hipótese específica: "Acreditamos que [perfil] perde [tempo] ao [tarefa] por [causa]". Não deixe a conclusão "precisamos de uma plataforma" aparecer na hipótese de problema.</aside>
+    </section>
+
+    <section class="slide" data-title="Pessoas e jornada atual" data-section="02 / Quem entrevistar">
+      <span class="eyebrow">Segmentação e contexto</span><h2 class="section-title">“O usuário” pode ser várias pessoas</h2>
+      <p class="section-lead">Mapeie quem inicia, executa, recebe e responde pelo processo antes de selecionar entrevistados.</p>
+      <div class="grid cols3" style="margin-top:20px">
+        <div class="panel"><div class="number">Perfil A</div><h3>Quem inicia a jornada</h3><p>Necessidade, motivação, ponto de entrada, esforço inicial.</p></div>
+        <div class="panel"><div class="number">Perfil B</div><h3>Quem executa etapas</h3><p>Transferências, sistemas usados, retrabalho e exceções.</p></div>
+        <div class="panel"><div class="number">Perfil C</div><h3>Quem recebe o resultado</h3><p>Qualidade, continuidade, transparência, erros percebidos.</p></div>
+      </div>
+      <div class="panel soft" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:29px"><div><h3>Mapa da jornada atual (AS IS)</h3><p>Passos, decisões, canais, handoffs, esperas e desvios.</p></div><div><h3>Além dos usuários</h3><p>Processo, tecnologia, dados, risco, privacidade e liderança patrocinadora.</p></div></div>
+      <div class="ribbon warn" style="margin-top:25px;align-self:start">Perfis ilustrativos. Ajustar aos públicos reais da Jornada Única.</div>
+      <aside class="speaker-note">No banco, usuário, patrocinador, decisor e operador podem ser diferentes. Incluir quem vive o problema e quem lida com exceções costuma revelar causas invisíveis nos fluxogramas.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Três evidências complementares" data-section="03 / Metodologias de pesquisa">
+      <span class="eyebrow">Triangulação de evidências</span><h2 class="section-title">A mesma dor, vista por três lentes</h2>
+      <p class="section-lead">Cada método responde a uma pergunta diferente. A confiança cresce quando os achados convergem.</p>
+      <div class="grid cols3" style="margin-top:20px">
+        <div class="panel dark-panel" style="border-top:7px solid #ff9465"><div class="evidence-icon">◉</div><h3>Qualitativa</h3><p><strong style="color:white">Por que acontece?</strong><br><br>Entrevista contextual, observação, shadowing, análise de casos. Revela mecanismos, linguagem e contexto.</p></div>
+        <div class="panel dark-panel" style="border-top:7px solid #7bd5ad"><div class="evidence-icon">▥</div><h3>Quantitativa</h3><p><strong style="color:white">Com que frequência e para quantos?</strong><br><br>Survey estruturada, amostra definida, segmentação, estimativas e incerteza.</p></div>
+        <div class="panel dark-panel" style="border-top:7px solid #8ac5ff"><div class="evidence-icon">⌁</div><h3>Comportamental</h3><p><strong style="color:white">O que realmente acontece?</strong><br><br>Logs, SLAs, tickets, retrabalho, desistências, tempos de processo e auditorias.</p></div>
+      </div>
+      <div class="callout" style="margin-top:25px;background:#253a4e;color:#fff;border-color:#ff9465"><strong style="color:#ffb28d">Regra útil:</strong> opinião relatada é uma pista; comportamento observado e dado operacional podem fortalecê-la ou contrariá-la.</div>
+      <div class="source">Leitura: <a href="https://www.nngroup.com/articles/mixed-methods-research/" target="_blank" rel="noopener noreferrer">Nielsen Norman Group, métodos mistos</a></div>
+      <aside class="speaker-note">Uma entrevista não estima prevalência. Uma pesquisa larga, se enviesada, também pode falhar. O ideal é explorar com qualidade, dimensionar com desenho amostral coerente e conferir o que os sistemas revelam.</aside>
+    </section>
+
+    <section class="slide dense" data-title="Pesquisa qualitativa" data-section="03 / Entrevistas em profundidade">
+      <span class="eyebrow">Como executar / Quali</span><h2 class="section-title">Entrevistas que descobrem, sem vender a ideia</h2>
+      <div class="grid cols2" style="margin-top:20px;gap:27px">
+        <div class="panel"><div class="number">O que a pessoa de Produto deve fazer</div><h3>Selecionar e ouvir pessoas certas</h3><ul class="list-clean"><li>Escolher perfis com experiência real, incluindo casos extremos.</li><li>Começar com ~5–8 entrevistas por perfil crítico e reavaliar lacunas.</li><li>Investigar episódios recentes por 30–45 min.</li><li>Registrar fatos e obter consentimento, protegendo dados.</li></ul></div>
+        <div class="panel orange-tint"><div class="number">Como aplicar</div><h3>Investigar o passado concreto</h3><p>“Conte a última vez em que precisou concluir essa jornada. O que aconteceu, passo a passo?”</p><div class="line"></div><p><b>Teoria:</b> entrevistas baseadas em histórias reais, de <em>The Mom Test</em> e <em>Continuous Discovery Habits</em>.</p></div>
+      </div>
+      <div class="bad-good" style="margin-top:23px">
+        <div class="panel bad"><h3>✕ O que não fazer</h3><blockquote>“Você gostaria de uma plataforma única e mais fácil?”</blockquote></div>
+        <div class="panel good"><h3>✓ O que fazer</h3><blockquote>“Na última ocorrência, onde você precisou parar ou refazer uma etapa?”</blockquote></div>
+      </div>
+      <div class="source">Base: <a href="https://www.momtestbook.com/" target="_blank" rel="noopener noreferrer">The Mom Test</a> · <a href="https://www.nngroup.com/articles/interview-sample-size/" target="_blank" rel="noopener noreferrer">NN/g, tamanho de amostra em entrevistas</a>. O número sugerido é ponto de partida, não regra fixa.</div>
+      <aside class="speaker-note">Organize as entrevistas por segmentos. A amostra pequena serve para descobrir padrões, não para afirmar “60% dos usuários sofrem”. Pergunte por eventos, artefatos, decisões e consequências. Não peça dados pessoais/sensíveis além do necessário.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Roteiro de entrevista" data-section="03 / Entrevistas em profundidade">
+      <span class="eyebrow">Template pronto para adaptar</span><h2 class="section-title">Roteiro de uma entrevista de 30 minutos</h2>
+      <div class="timeline">
+        <div class="time">0–3 min</div><div class="question"><b>Contexto:</b> “Qual é sua responsabilidade nesse processo? Com que frequência você participa?”</div>
+        <div class="time">3–10 min</div><div class="question"><b>Último caso:</b> “Conte o episódio mais recente, desde o começo. Quais sistemas ou pessoas entraram?”</div>
+        <div class="time">10–18 min</div><div class="question"><b>Fricção:</b> “Em que momento surgiu dificuldade? Quanto tempo levou? O que ocorreu depois?”</div>
+        <div class="time">18–24 min</div><div class="question"><b>Contorno:</b> “Como você resolve hoje? O que faz quando dá errado? Tem exemplos de retrabalho?”</div>
+        <div class="time">24–28 min</div><div class="question"><b>Prioridade:</b> “Dentre os problemas dessa rotina, qual mais prejudica seu trabalho? Por quê?”</div>
+        <div class="time">28–30 min</div><div class="question"><b>Fecho:</b> “Há registros que poderíamos analisar? Quem vive outra parte dessa situação?”</div>
+      </div>
+      <div class="ribbon" style="margin-top:22px;align-self:start">Registrar: episódio, comportamento, evidência, frequência relatada, impacto e hipótese de causa.</div>
+      <aside class="speaker-note">O roteiro é flexível. A melhor pergunta de acompanhamento costuma ser “O que aconteceu na prática?”. Se houver tempo, peça à pessoa que mostre o fluxo em ambiente autorizado, sem copiar dados confidenciais para a pesquisa.</aside>
+    </section>
+
+    <section class="slide dense" data-title="Síntese qualitativa" data-section="03 / Da fala ao insight">
+      <span class="eyebrow">Depois das entrevistas / Guia do PM</span><h2 class="section-title">Transformar relatos em padrões verificáveis</h2>
+      <p class="section-lead">Aqui, o papel de Produto é converter conversas em oportunidades testáveis, com rastreabilidade até os casos reais.</p>
+      <div class="guide-columns" style="margin-top:14px">
+        <div class="panel do"><div class="number">✓ A pessoa de Produto deve</div><h3>Organizar, classificar, questionar</h3><ul><li>Criar uma linha por episódio, com perfil e etapa.</li><li>Agrupar relatos semelhantes em temas.</li><li>Separar evidência observada de hipótese.</li><li>Procurar exceções e perguntas ainda abertas.</li></ul></div>
+        <div class="panel avoid"><div class="number">✕ Não deve</div><h3>Confundir opinião com prova</h3><ul><li>Transformar fala isolada em requisito.</li><li>Concluir “75% dos usuários” com 9 de 12 entrevistas.</li><li>Descartar relatos contrários à ideia original.</li></ul></div>
+        <div class="panel theory"><div class="number">◎ Teoria por trás</div><h3>Affinity Mapping + JTBD</h3><p><b>Affinity Mapping</b> reúne observações em temas. <b>Jobs to Be Done</b> formula o progresso que a pessoa busca, sem assumir uma funcionalidade.</p></div>
+      </div>
+      <div class="example-chain" style="margin-top:24px"><div class="panel"><h3>Relato</h3><p>“Preenchi a mesma informação duas vezes.”</p></div><span class="arrow">›</span><div class="panel"><h3>Tema</h3><p>Redigitação após transferência de etapa.</p></div><span class="arrow">›</span><div class="panel"><h3>Hipótese a verificar</h3><p>Há perda de contexto entre etapas?</p></div></div>
+      <div class="source">Exemplo hipotético. Teoria: <a href="https://www.nngroup.com/articles/affinity-diagram/" target="_blank" rel="noopener noreferrer">NN/g, Affinity Diagramming</a> · <a href="https://www.producttalk.org/interview-snapshot/" target="_blank" rel="noopener noreferrer">Teresa Torres, Interview Snapshot</a> · <a href="https://www.strategyzer.com/library/the-value-proposition-canvas" target="_blank" rel="noopener noreferrer">Value Proposition Canvas / JTBD</a>.</div>
+      <aside class="speaker-note">Peça para alguém transformar a fala “tive que preencher de novo” em três campos: evidência, tema, hipótese. Explique que affinity mapping identifica temas, mas não estima a prevalência na população. JTBD ajuda a expressar a necessidade do usuário, enquanto a análise de logs ou survey pode dimensionar a oportunidade.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Pesquisa quantitativa" data-section="04 / Dimensionamento da dor">
+      <span class="eyebrow">Como executar / Quanti</span><h2 class="section-title">Agora precisamos saber o tamanho do problema</h2>
+      <div class="grid cols2" style="gap:23px;margin-top:12px">
+        <div class="panel"><div class="number">O que a pessoa de Produto deve fazer</div><ul class="list-clean"><li>Definir universo e segmentos antes de coletar.</li><li>Combinar com especialista a seleção da amostra.</li><li>Perguntar por período específico, sem termos vagos.</li><li>Medir frequência, severidade e consequência.</li><li>Confrontar respostas com dados de operação.</li></ul></div>
+        <div class="panel"><div class="number">Como fazer / Perguntas úteis</div><ol style="padding-left:25px;margin:0"><li>Em quantas jornadas participou nos últimos 30 dias?</li><li>Em quantas houve retomada ou retrabalho?</li><li>Quantos minutos extras isso levou na última vez?</li><li>Qual foi a consequência principal?</li><li>Em qual etapa o problema ocorreu?</li></ol></div>
+      </div>
+      <div class="callout" style="margin-top:25px"><strong>O que não fazer:</strong> interpretar uma pesquisa de adesão voluntária como representativa. <strong>Teoria:</strong> desenho amostral, viés de seleção e inferência estatística.</div>
+      <div class="source">Método: <a href="https://www.nngroup.com/articles/convenience-vs-probability-sampling/" target="_blank" rel="noopener noreferrer">NN/g, amostragem por conveniência versus probabilística</a> · <a href="https://www.nngroup.com/articles/mixed-methods-research/" target="_blank" rel="noopener noreferrer">métodos mistos</a>.</div>
+      <aside class="speaker-note">Evite perguntar “Você usaria a Jornada Única?”. Essa pergunta mede intenção declarada sob influência da ideia. Em discovery do problema, meça a jornada atual. Se a pesquisa for direcionada apenas aos usuários mais insatisfeitos, a taxa resultante não representa todo o público.</aside>
+    </section>
+
+    <section class="slide dense" data-title="Calculadora de amostra" data-section="04 / Confiança quantitativa">
+      <span class="eyebrow">Interativo / Planejamento amostral</span><h2 class="section-title">Quantas respostas são suficientes?</h2>
+      <p class="section-lead">Para estimar uma proporção em amostragem aleatória simples. Ajuste as premissas e observe o tamanho mínimo teórico.</p>
+      <div class="calc" style="margin-top:6px">
+        <div class="fields">
+          <div><label for="confidence">Nível de confiança</label><select id="confidence"><option value="1.645">90%</option><option value="1.96" selected>95%</option><option value="2.576">99%</option></select></div>
+          <div><label for="margin">Margem de erro</label><select id="margin"><option value="0.03">±3 p.p.</option><option value="0.05" selected>±5 p.p.</option><option value="0.07">±7 p.p.</option><option value="0.10">±10 p.p.</option></select></div>
+          <div><label for="population">População elegível (N)</label><input id="population" type="number" min="1" step="1" placeholder="Em branco = grande"></div>
+        </div>
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:36px"><div><div class="result" id="sampleResult">385</div><div style="font-size:20px">respostas completas estimadas</div></div><div style="max-width:560px;padding-bottom:12px"><p class="calcfoot" id="sampleExplain">Proporção conservadora p=50%. Fórmula base n₀ = z²·p·(1−p)/e², com correção para população finita quando N é informado.</p></div></div>
+      </div>
+      <div class="grid cols2" style="margin-top:21px"><div class="panel orange-tint"><h3>✕ A pessoa de Produto não deve</h3><p>Usar “385 respostas” como selo de validade sem verificar seleção, cobertura e não resposta.</p></div><div class="panel soft"><h3>✓ A pessoa de Produto deve</h3><p>Definir a precisão necessária e revisar estratos, subgrupos e desenho com pesquisa/dados.</p></div></div>
+      <div class="source">Referência: <a href="https://www.nngroup.com/articles/confidence-interval/" target="_blank" rel="noopener noreferrer">NN/g, intervalos de confiança e margens de erro</a>. Estimativa didática, não plano amostral definitivo.</div>
+      <aside class="speaker-note">Mostre o exemplo 95% ±5 pontos: cerca de 385 para população grande, sob amostragem aleatória simples e p=0,5. O cálculo mede precisão teórica de uma estimativa, não prova causalidade nem elimina vieses. Revisão com profissional de pesquisa/estatística é indicada para decisão relevante.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Triangulação em prática" data-section="04 / O que seria evidência">
+      <span class="eyebrow">Exemplo inteiramente fictício</span><h2 class="section-title">De “achamos que dói” para “sabemos onde investigar”</h2>
+      <div class="grid cols3" style="margin-top:25px">
+        <div class="panel"><div class="number">Pesquisa qualitativa</div><div class="metric">9/12</div><p>entrevistados narraram um episódio de retrabalho. Isso descreve a amostra, <b>não</b> a prevalência.</p></div>
+        <div class="panel"><div class="number">Pesquisa quantitativa</div><div class="metric">58%</div><p>em uma amostra de 320 respondentes, relataram retrabalho no último mês. Exige examinar amostragem e IC.</p></div>
+        <div class="panel"><div class="number">Dado operacional</div><div class="metric">21 min</div><p>de tempo adicional mediano nos casos afetados, se o indicador for confiável.</p></div>
+      </div>
+      <div class="panel dark-panel" style="margin-top:29px;display:grid;grid-template-columns:1fr 1fr;gap:24px"><div><div class="number" style="color:#ffb181">Hipótese fortalecida</div><h3>Há uma fricção relevante na jornada atual.</h3><p>Ainda precisamos localizar causa e alternativas.</p></div><div><div class="number" style="color:#ffb181">O que ainda não sabemos</div><h3>Uma plataforma única resolve o problema?</h3><p>Valor e adoção da solução continuam sem validação.</p></div></div>
+      <div class="ribbon warn" style="align-self:start;margin-top:24px">Números fictícios usados somente para ensinar a leitura de evidência.</div>
+      <aside class="speaker-note">A triangulação aumenta confiança quando medidas independentes convergem. Exemplo inventado: 9/12 entrevistas, 58% de 320 e 21 minutos. Não use esses números como resultados da Jornada Única. Pergunte: “Que outra explicação poderia gerar esse padrão?”</aside>
+    </section>
+
+    <section class="slide" data-title="Priorização de oportunidades" data-section="05 / Escolher o que atacar">
+      <span class="eyebrow">Opportunity Solution Tree</span><h2 class="section-title">Organize as oportunidades antes das funcionalidades</h2>
+      <p class="section-lead">Uma árvore mantém visível a relação entre resultado desejado, dores e possibilidades de intervenção.</p>
+      <div class="ost" style="margin-top:16px"><div class="outcome"><small style="color:#bbcfde">Resultado de negócio e usuário</small><b>Reduzir a incidência de retrabalho na jornada</b></div><div class="ost-connector"></div><div class="opportunities"><div class="op"><small>Oportunidade A</small>Reduzir repetição de dados</div><div class="op"><small>Oportunidade B</small>Melhorar passagem de contexto</div><div class="op"><small>Oportunidade C</small>Tratar exceções com clareza</div></div><div class="ost-connector"></div><div class="options"><div class="solution">Integração de campos<br>existentes</div><div class="solution">Ajuste do fluxo e<br>responsabilidades</div><div class="solution">Protótipo de jornada<br>integrada</div></div></div>
+      <div class="callout" style="margin-top:31px"><strong>Papel de Produto:</strong> manter o resultado desejado no topo, priorizar oportunidades e comparar soluções. Evite começar a árvore com uma funcionalidade pronta.</div>
+      <div class="source">Adaptado conceitualmente de <a href="https://www.producttalk.org/discovering-solutions/" target="_blank" rel="noopener noreferrer">Teresa Torres / Opportunity Solution Tree</a>. Nós da árvore são hipotéticos.</div>
+      <aside class="speaker-note">Parta de um outcome observável, não de “criar Jornada Única”. Mapeie oportunidades diferentes e somente então gere soluções. Envolver design e engenharia desde cedo ajuda a testar ideias sob perspectivas distintas.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Novo produto ou outra intervenção?" data-section="05 / Alternativas de solução">
+      <span class="eyebrow">A pergunta mais importante</span><h2 class="section-title">A dor pode ser real. Um novo produto ainda pode ser desnecessário.</h2>
+      <div class="grid cols2" style="margin-top:23px;gap:22px">
+        <div class="panel"><div class="choice"><div class="choice-icon">1</div><div><h3>Melhoria de processo</h3><p>Retirar aprovação, etapa redundante ou espera desnecessária.</p></div></div><div class="choice"><div class="choice-icon">2</div><div><h3>Capacitação ou comunicação</h3><p>Corrigir desconhecimento de ferramenta já disponível.</p></div></div><div class="choice"><div class="choice-icon">3</div><div><h3>Evolução de produto existente</h3><p>Configurar, integrar ou ampliar uma experiência já usada.</p></div></div></div>
+        <div class="panel"><div class="choice"><div class="choice-icon">4</div><div><h3>Automação pontual</h3><p>Atacar um gargalo específico com menor investimento.</p></div></div><div class="choice"><div class="choice-icon">5</div><div><h3>Produto novo</h3><p>Faz sentido se entregar valor distinto e sustentável melhor que as alternativas.</p></div></div><div class="choice"><div class="choice-icon">?</div><div><h3>Não agir por enquanto</h3><p>Escolha válida quando impacto ou evidência ainda não justificam custo e risco.</p></div></div></div>
+      </div>
+      <div class="callout" style="margin-top:25px">Comparar opções por: <strong>impacto esperado, adoção, tempo até valor, custo total, dependências e risco.</strong></div>
+      <aside class="speaker-note">Um time maduro tem liberdade de concluir “resolvemos com processo”, “aproveitamos um produto existente” ou “ainda não vamos investir”. Product management inclui alocação eficiente de recursos, não defender a solução original a qualquer custo.</aside>
+    </section>
+
+    <section class="slide" data-title="Quatro riscos de produto" data-section="06 / Product Discovery">
+      <span class="eyebrow">Marty Cagan / Quatro riscos</span><h2 class="section-title">Antes de investir, reduza os riscos principais</h2>
+      <div class="grid cols2" style="margin-top:23px">
+        <div class="risk-card"><div class="risk-label">01 / Valor</div><b>Alguém escolherá usar?</b><p>Teste de proposta de valor, problemas priorizados, compromisso de participação e comportamento.</p></div>
+        <div class="risk-card"><div class="risk-label">02 / Usabilidade</div><b>Conseguirão completar a tarefa?</b><p>Protótipos testados em tarefas reais, observação de erros, compreensão e esforço.</p></div>
+        <div class="risk-card"><div class="risk-label">03 / Viabilidade técnica</div><b>Conseguimos construir e operar?</b><p>Integrações, qualidade de dados, segurança, arquitetura, custo e capacidade técnica.</p></div>
+        <div class="risk-card"><div class="risk-label">04 / Viabilidade de negócio</div><b>É sustentável e permitido?</b><p>ROI, modelo operacional, patrocínio, risco, privacidade, conformidade e prioridades.</p></div>
+      </div>
+      <div class="callout" style="margin-top:20px">No contexto bancário, <strong>governança, segurança da informação e privacidade</strong> entram desde o discovery, com as áreas responsáveis.</div>
+      <div class="source"><a href="https://www.svpg.com/four-big-risks/" target="_blank" rel="noopener noreferrer">SVPG, The Four Big Risks</a>. O material não substitui políticas ou aprovações internas do Itaú.</div>
+      <aside class="speaker-note">Discuta risco com especialistas: valor e negócio com PM, experiência com design, viabilidade com engenharia e controles internos com as áreas competentes. A distribuição de responsabilidade varia conforme a organização.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Experimentos antes do MVP" data-section="06 / Aprendizado barato">
+      <span class="eyebrow">Experimentação orientada por hipótese</span><h2 class="section-title">Quanto menos sabemos, menor deve ser a aposta</h2>
+      <div class="grid cols4" style="margin-top:29px">
+        <div class="panel"><div class="number">Experimento 1</div><h3>Storyboards</h3><p>Mostrar cenários para testar compreensão do problema e da proposta.</p><div class="line"></div><div class="tiny">Aprende: relevância e entendimento</div></div>
+        <div class="panel"><div class="number">Experimento 2</div><h3>Protótipo clicável</h3><p>Observar pessoas tentando resolver uma tarefa sem ajuda.</p><div class="line"></div><div class="tiny">Aprende: usabilidade e fluxo</div></div>
+        <div class="panel"><div class="number">Experimento 3</div><h3>Concierge</h3><p>Prestar manualmente parte do serviço em escala controlada.</p><div class="line"></div><div class="tiny">Aprende: valor e operação</div></div>
+        <div class="panel"><div class="number">Experimento 4</div><h3>Piloto instrumentado</h3><p>Resolver uma parte da jornada com usuários autorizados.</p><div class="line"></div><div class="tiny">Aprende: resultado e riscos reais</div></div>
+      </div>
+      <div class="panel dark-panel" style="margin-top:29px;display:grid;grid-template-columns:1fr 1fr;gap:22px"><div><h3>✓ A pessoa de Produto deve</h3><p>Escolher a hipótese mais arriscada e registrar métrica, linha de base e critério antes do teste.</p></div><div><h3>✕ Não deve</h3><p>Tratar uma opinião positiva sobre protótipo como prova de adoção. <b>Teoria:</b> Lean Startup e Testing Business Ideas.</p></div></div>
+      <div class="source">Inspiração: <a href="https://theleanstartup.com/book" target="_blank" rel="noopener noreferrer">The Lean Startup, aprendizado validado e MVP</a> · <a href="https://www.nngroup.com/articles/usability-testing-101/" target="_blank" rel="noopener noreferrer">NN/g, testes de usabilidade</a></div>
+      <aside class="speaker-note">A escolha do experimento depende da incerteza mais arriscada. Um protótipo bonito não testa adesão real; um piloto sem linha de base dificulta estimar benefício. Concierges devem ter fluxo autorizado e controles apropriados.</aside>
+    </section>
+
+    <section class="slide" data-title="MVP e métricas" data-section="07 / Medir resultado">
+      <span class="eyebrow">O menor recorte que ensina algo</span><h2 class="section-title">MVP: teste de uma hipótese sob condições reais</h2>
+      <div class="grid cols2" style="margin-top:16px;gap:24px">
+        <div class="panel orange-tint"><div class="number">Recorte possível</div><h3>Uma etapa, um perfil, uma situação</h3><p>Exemplo ilustrativo: um grupo piloto que execute uma etapa específica da jornada atual por um fluxo simplificado.</p><div class="line"></div><p>Instrumente as duas experiências e observe também exceções.</p></div>
+        <div class="panel"><div class="number">Scorecard do piloto</div><table class="small-table compact"><thead><tr><th>Métrica</th><th>Pergunta</th></tr></thead><tbody><tr><td>Conclusão sem retrabalho</td><td>Resolveu melhor?</td></tr><tr><td>Tempo por jornada</td><td>Ganhou eficiência?</td></tr><tr><td>Adoção efetiva</td><td>O público escolheu usar?</td></tr><tr><td>Erros e incidentes</td><td>Houve efeito colateral?</td></tr><tr><td>Experiência observada</td><td>Conseguiram completar?</td></tr></tbody></table></div>
+      </div>
+      <div class="callout" style="margin-top:25px">Sucesso exige <strong>melhora demonstrável no resultado</strong>, sem piorar riscos operacionais ou a experiência de grupos relevantes.</div>
+      <aside class="speaker-note">Defina a métrica principal antes do piloto. Se for possível, compare a grupos semelhantes ou use desenho de experimento adequado. Uma queda no tempo, isoladamente, pode esconder aumento de erro. Métricas aqui são sugestões, não metas internas aprovadas.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Decisão de investimento" data-section="07 / Gate de decisão">
+      <span class="eyebrow">Interativo / Discussão em grupo</span><h2 class="section-title">Estamos prontos para investir na Jornada Única?</h2>
+      <p class="section-lead">Marque apenas o que já tem evidência documentada. O painel indica o próximo passo de discussão, não concede aprovação.</p>
+      <div class="gate-list" id="gateList" style="margin-top:10px">
+        <button class="gate-item" aria-pressed="false"><span class="check"></span>Descrevemos a dor com episódios reais.</button>
+        <button class="gate-item" aria-pressed="false"><span class="check"></span>Dimensionamos público, frequência e impacto.</button>
+        <button class="gate-item" aria-pressed="false"><span class="check"></span>Comparamos alternativas ao produto novo.</button>
+        <button class="gate-item" aria-pressed="false"><span class="check"></span>Testamos a hipótese crítica de valor/uso.</button>
+        <button class="gate-item" aria-pressed="false" style="grid-column:span 2"><span class="check"></span>Riscos técnicos, de negócio e controles têm avaliação inicial.</button>
+      </div>
+      <div class="gate-status"><div><strong id="gateMessage">Começar pelo entendimento da dor</strong><div><span id="gateDetail">0 de 5 evidências marcadas. Identifique a principal hipótese não validada.</span></div></div><button id="resetGate">Limpar checklist</button></div>
+      <div class="ribbon warn" style="margin-top:22px;align-self:start">Gate orientativo, sem substituir a governança de investimento do Itaú.</div>
+      <aside class="speaker-note">Peça ao grupo para votar baseado apenas em evidência que poderia apresentar. “Acho que” não marca a caixa. Uma evidência contraditória pode justificar pivotar ou encerrar, mesmo com quatro caixas completas. O gate é um facilitador didático, não uma regra estatística ou política interna.</aside>
+    </section>
+
+    <section class="slide" data-title="Plano de discovery em quatro semanas" data-section="08 / Aplicação prática">
+      <span class="eyebrow">Proposta inicial, ajustável à complexidade</span><h2 class="section-title">Quatro semanas para produzir uma decisão melhor</h2>
+      <div class="grid cols4" style="margin-top:28px">
+        <div class="panel" style="border-top:7px solid #ed5b2a"><div class="number">Semana 1</div><h3>Enquadrar</h3><p>Definir objetivo, hipóteses, segmentos, mapa AS IS, dados disponíveis e critérios de decisão.</p><div class="line"></div><div class="tiny"><b>Saída:</b> problem brief + plano de pesquisa</div></div>
+        <div class="panel" style="border-top:7px solid #e67d49"><div class="number">Semana 2</div><h3>Ouvir e observar</h3><p>Entrevistas por perfil, observação de casos reais, síntese de padrões e exceções.</p><div class="line"></div><div class="tiny"><b>Saída:</b> mapa de dores com evidências</div></div>
+        <div class="panel" style="border-top:7px solid #4785ae"><div class="number">Semana 3</div><h3>Quantificar</h3><p>Survey e telemetria, estimativa de incidência, impacto e recortes prioritários.</p><div class="line"></div><div class="tiny"><b>Saída:</b> tamanho do problema + incertezas</div></div>
+        <div class="panel" style="border-top:7px solid #118469"><div class="number">Semana 4</div><h3>Testar e decidir</h3><p>Priorizar oportunidade, comparar opções, testar protótipo e registrar recomendação.</p><div class="line"></div><div class="tiny"><b>Saída:</b> go / pivot / no-go / pesquisar mais</div></div>
+      </div>
+      <div class="panel soft" style="margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:20px"><div><h3>Time mínimo transversal</h3><p>Patrocinador do problema, pessoas do processo, PM, UX/research, dados, engenharia e controles necessários.</p></div><div><h3>Artefato final para decisão</h3><p>Uma página com: dor, público, evidência, impacto, alternativas, experimento, riscos e recomendação.</p></div></div>
+      <aside class="speaker-note">Quatro semanas é uma cadência ilustrativa. A pesquisa quantitativa ou aprovações podem exigir mais tempo. Em times com acesso pronto a dados e usuários, discovery pode ser contínuo e paralelo à entrega de melhorias existentes.</aside>
+    </section>
+
+    <section class="slide warm" data-title="Livros essenciais" data-section="09 / Referências">
+      <span class="eyebrow">Biblioteca curada / Autores originais</span><h2 class="section-title">Cinco livros para aprofundar o método</h2>
+      <div class="grid cols2" style="gap:15px;margin-top:19px">
+        <div class="book"><div class="book-spine"></div><div><h3>The Mom Test <span class="tiny">/ Rob Fitzpatrick</span></h3><p>Entrevistas sem perguntas indutoras.</p><a href="https://www.momtestbook.com/" target="_blank" rel="noopener noreferrer">Página oficial do livro</a></div></div>
+        <div class="book"><div class="book-spine"></div><div><h3>Continuous Discovery Habits <span class="tiny">/ Teresa Torres</span></h3><p>Descoberta contínua e árvore de oportunidades.</p><a href="https://www.producttalk.org/continuous-discovery-habits-book/" target="_blank" rel="noopener noreferrer">Página oficial do livro</a></div></div>
+        <div class="book"><div class="book-spine"></div><div><h3>INSPIRED <span class="tiny">/ Marty Cagan</span></h3><p>Descoberta, quatro riscos e times de produto.</p><a href="https://www.svpg.com/books/inspired-how-to-create-tech-products-customers-love-2nd-edition/" target="_blank" rel="noopener noreferrer">Página do autor</a></div></div>
+        <div class="book"><div class="book-spine"></div><div><h3>The Lean Startup <span class="tiny">/ Eric Ries</span></h3><p>MVP, experimento e aprendizado validado.</p><a href="https://theleanstartup.com/book" target="_blank" rel="noopener noreferrer">Página oficial do livro</a></div></div>
+        <div class="book colspan2"><div class="book-spine"></div><div><h3>Value Proposition Design <span class="tiny">/ Alexander Osterwalder e coautores</span></h3><p>Jobs, dores, ganhos e hipóteses de valor a testar com o usuário.</p><a href="https://www.strategyzer.com/library/the-value-proposition-canvas" target="_blank" rel="noopener noreferrer">Ferramenta oficial complementar</a></div></div>
+      </div>
+      <aside class="speaker-note">Para começar, recomende The Mom Test para entrevistas, Continuous Discovery Habits para o processo e INSPIRED para o modelo de produto. Complemente com os artigos metodológicos de pesquisa no próximo slide.</aside>
+    </section>
+
+    <section class="slide" data-title="Fontes e templates" data-section="09 / Referências">
+      <span class="eyebrow">Para sair desta apresentação e executar</span><h2 class="section-title">Fontes, métodos e materiais complementares</h2>
+      <div class="resources" style="margin-top:25px">
+        <div class="resource"><b>Discovery e riscos</b><br><a href="https://www.svpg.com/four-big-risks/" target="_blank" rel="noopener noreferrer">SVPG: Four Big Risks</a></div>
+        <div class="resource"><b>Entrevistas eficazes</b><br><a href="https://www.momtestbook.com/" target="_blank" rel="noopener noreferrer">Rob Fitzpatrick: The Mom Test</a></div>
+        <div class="resource"><b>Oportunidades e soluções</b><br><a href="https://www.producttalk.org/discovering-solutions/" target="_blank" rel="noopener noreferrer">Teresa Torres: Opportunity Solution Tree</a></div>
+        <div class="resource"><b>Mapa de Jobs, Pains, Gains</b><br><a href="https://www.strategyzer.com/library/the-value-proposition-canvas" target="_blank" rel="noopener noreferrer">Strategyzer: Value Proposition Canvas</a></div>
+        <div class="resource"><b>Métodos mistos</b><br><a href="https://www.nngroup.com/articles/mixed-methods-research/" target="_blank" rel="noopener noreferrer">NN/g: qualitativo + quantitativo</a></div>
+        <div class="resource"><b>Amostragem e confiabilidade</b><br><a href="https://www.nngroup.com/articles/convenience-vs-probability-sampling/" target="_blank" rel="noopener noreferrer">NN/g: amostragem</a> e <a href="https://www.nngroup.com/articles/confidence-interval/" target="_blank" rel="noopener noreferrer">intervalos de confiança</a></div>
+        <div class="resource"><b>Entrevistas e tamanho da amostra</b><br><a href="https://www.nngroup.com/articles/interview-sample-size/" target="_blank" rel="noopener noreferrer">NN/g: quantas entrevistas?</a></div>
+        <div class="resource"><b>Testar com usuários</b><br><a href="https://www.nngroup.com/articles/usability-testing-101/" target="_blank" rel="noopener noreferrer">NN/g: Usability Testing 101</a></div>
+      </div>
+      <div class="callout" style="margin-top:28px">Próximo passo sugerido: <strong>documentar a hipótese principal da Jornada Única e planejar a primeira rodada de entrevistas.</strong></div>
+      <aside class="speaker-note">Os links apontam a materiais dos próprios autores e organizações. A equipe pode adaptar o roteiro de entrevista do slide 8 e as perguntas quantitativas do slide 10 para um plano de pesquisa aprovado internamente.</aside>
+    </section>
+
+    <section class="slide orange" data-title="Encerramento" data-section="Jornada Única / Próxima decisão">
+      <span class="eyebrow">Pergunta final</span>
+      <h2 class="hero-title" style="font-size:99px;max-width:1240px;margin-top:103px">Qual evidência<br><span style="color:#192c40">mudaria nossa<br>decisão</span> amanhã?</h2>
+      <p class="hero-sub" style="color:rgba(255,255,255,.9);max-width:1030px">O melhor primeiro passo para a Jornada Única pode ser uma entrevista, uma análise de processo ou um experimento.</p>
+      <div class="hero-bottom"><div>Obrigado!</div><div style="text-align:right"><b>Jornada Única</b><br>Da hipótese à decisão de produto</div></div>
+      <aside class="speaker-note">Retome a pergunta da abertura. Peça duas respostas: “Qual hipótese temos menos evidência para sustentar?” e “Qual experimento conseguiríamos realizar primeiro?”. Feche com compromisso: responsável, prazo e critério de aprendizado.</aside>
+    </section>
+
+  </div></main>
+
+  <div id="notes" aria-live="polite"><button id="closeNotes" title="Fechar notas">✕</button><h3>Notas do apresentador</h3><div id="notesText"></div></div>
+  <div id="outline"><h2>Visão geral <span style="font-size:16px;font-weight:400;color:#adbccc">Clique para abrir qualquer slide · Esc fecha</span></h2><div class="outline-grid" id="outlineGrid"></div></div>
+  <aside id="guideOverlay" role="dialog" aria-modal="true" aria-labelledby="guideTitle" aria-hidden="true">
+    <div class="guide-detail">
+      <button id="closeGuide" aria-label="Fechar guia">✕</button>
+      <div class="kicker">Guia de atuação e exemplos de Product Discovery</div><h2 id="guideTitle"></h2>
+      <div class="guide-tabs" role="tablist" aria-label="Conteúdo complementar">
+        <button class="modal-tab" data-mode="guide" role="tab" aria-selected="true">✦ Papel do PM</button>
+        <button class="modal-tab" data-mode="example" role="tab" aria-selected="false">▷ Exemplo na prática</button>
+        <button class="modal-tab" data-mode="sources" role="tab" aria-selected="false">ⓘ Teoria e fontes</button>
+      </div>
+      <section id="guidePage" class="modal-page active" role="tabpanel">
+        <div class="guide-grid"><div class="guide-box good"><h3>✓ O que deve fazer</h3><ol id="guideDo"></ol></div><div class="guide-box bad"><h3>✕ O que não deve fazer</h3><ul id="guideAvoid"></ul></div></div>
+        <div class="theory-box"><b>◎ Qual é a teoria por trás?</b><p id="guideTheory" style="margin:8px 0"></p><a id="guideLink" target="_blank" rel="noopener noreferrer"></a></div>
+        <div class="bottomline"><b>Entregável esperado:</b> <span id="guideDeliverable"></span></div>
+      </section>
+      <section id="examplePage" class="modal-page" role="tabpanel">
+        <div id="exampleContext" class="example-lead"></div>
+        <ol id="exampleSteps" class="example-list"></ol>
+        <div class="example-output"><b>Como fica o entregável:</b> <span id="exampleOutput"></span></div>
+        <p class="modal-tip">Exemplo fictício para ensino. Ajuste perfis, métricas e processos aos dados reais da Jornada Única.</p>
+      </section>
+      <section id="sourcesPage" class="modal-page" role="tabpanel">
+        <div id="slideSources" class="modal-source"></div>
+        <div class="theory-box"><b>Conceito metodológico</b><p id="sourcesTheory" style="margin:8px 0"></p><a id="sourcesLink" target="_blank" rel="noopener noreferrer"></a></div>
+      </section>
+    </div>
+  </aside>
+  <nav id="controls" aria-label="Controles da apresentação">
+    <div class="left"><button id="prev" title="Slide anterior (←)">←</button><button id="next" title="Próximo slide (→)">→</button></div>
+    <span id="pageCount">01 / 24</span><div id="progressTrack" aria-hidden="true"><div id="progressBar"></div></div><span id="slideName">Abertura</span>
+    <div class="right"><button id="guideButton" title="O que a pessoa de Produto deve fazer (M)">✦ Guia do PM</button><button id="exampleButton" title="Exemplo passo a passo (E)">▷ Exemplo</button><button id="overviewButton" title="Visão geral (G)">▦ Visão geral</button><button id="notesButton" title="Notas (N)">☷ Notas</button><button id="printButton" title="Imprimir ou salvar em PDF (P)">⎙ PDF</button><button id="fullButton" title="Tela cheia (F)">⛶ Tela cheia</button><button id="themeButton" title="Alternar leitura clara ou escura (T)" aria-pressed="false">☾ Escuro</button></div>
+  </nav>
+  <script>
+    (()=>{
+      'use strict';
+      const deck=document.getElementById('deck');
+      const viewport=document.getElementById('viewport');
+      const slides=[...deck.querySelectorAll('.slide')];
+      const notes=document.getElementById('notes');
+      const outline=document.getElementById('outline');
+      const guideOverlay=document.getElementById('guideOverlay');
+      let current=0;
+      const $=(id)=>document.getElementById(id);
+      const guideData={
+        'Do problema ao aprendizado':{
+          action:'ligar etapas a decisões',
+          doing:['Definir o outcome e a decisão que precisa ser tomada.','Planejar como descobrir se a dor existe antes de detalhar a solução.','Revisitar hipóteses quando novos dados contradisserem a proposta.'],
+          avoid:['Tratar discovery como fase formal encerrada por uma reunião.','Medir progresso apenas por funcionalidades entregues.'],
+          theory:'Product Discovery e Outcome Orientation. Marty Cagan organiza riscos de produto; Teresa Torres orienta a pesquisa contínua conectada a resultados.',
+          url:'https://www.producttalk.org/continuous-discovery-habits-book/',reference:'Continuous Discovery Habits / Teresa Torres',deliverable:'mapa de decisões e evidências para cada etapa.'},
+        'O papel da pessoa de Produto':{
+          action:'coordenar aprendizado e decisão',
+          doing:['Explicitar quem vive a dor e qual mudança importa.','Convidar UX, dados, engenharia e negócio para investigar juntos.','Comunicar recomendações com evidências, limites e próximos testes.'],
+          avoid:['Assumir que o PM precisa realizar sozinho toda a pesquisa ou construir a solução.','Confundir a aprovação de um escopo com validação de produto.'],
+          theory:'Modelo de times de produto: a descoberta reduz riscos de valor, usabilidade, viabilidade técnica e de negócio.',url:'https://www.svpg.com/four-big-risks/',reference:'The Four Big Risks / Marty Cagan',deliverable:'clareza de responsabilidade e de decisão para a Jornada Única.'},
+        'O fluxo decisório do PM':{
+          action:'conduzir as seis decisões com evidência',
+          doing:['Escrever primeiro a hipótese de problema, não um escopo de plataforma.','Investigar episódios reais com perfis distintos e medir incidência com amostragem e dados operacionais.','Comparar soluções existentes, evolução de processo e criação de produto.','Definir experimento e critério de decisão antes de investir.','Documentar go para piloto, pivot, investigação adicional ou no-go com rastreabilidade.'],
+          avoid:['Usar vontade de patrocinador como evidência de necessidade.','Confundir entrevistas positivas com tamanho de mercado ou adoção.','Desenhar o produto antes de comparar intervenções.','Interpretar um piloto bem-sucedido como aprovação automática para escala.'],
+          theory:'Product Discovery contínuo (Teresa Torres), Opportunity Solution Tree para conectar resultado, oportunidades e opções e os quatro riscos de produto (Marty Cagan). O fluxo é iterativo; lacunas de evidência exigem voltar à pesquisa.',url:'https://www.producttalk.org/continuous-discovery-habits-book/',reference:'Continuous Discovery Habits / Teresa Torres',deliverable:'decision brief: problema, usuários, evidências, alternativas, teste crítico, riscos e recomendação explícita.'},
+        'As cinco hipóteses':{
+          action:'escrever hipóteses falsificáveis',
+          doing:['Escrever uma afirmação específica: quem sofre, em qual situação e com qual consequência.','Separar hipótese de problema de hipótese de solução.','Definir qual observação confirmaria, enfraqueceria ou invalidaria a hipótese.'],
+          avoid:['Redigir “precisamos da Jornada Única” como se fosse uma hipótese de problema.','Mudar o critério de sucesso depois de conhecer o resultado.'],
+          theory:'Testing Business Ideas. Uma hipótese útil pode ser submetida a um experimento capaz de contradizê-la.',url:'https://www.strategyzer.com/library/mastering-business-testing-formulating-strong-hypotheses',reference:'Strategyzer / Formulating Strong Hypotheses',deliverable:'quadro de hipóteses e critérios de evidência.'},
+        'Pessoas e jornada atual':{
+          action:'mapear públicos e fluxo atual',
+          doing:['Identificar quem inicia, executa, recebe o resultado e decide.','Mapear o fluxo atual com passos, esperas, exceções e ferramentas.','Recrutar entrevistados de cada perfil relevante, inclusive casos difíceis.'],
+          avoid:['Entrevistar apenas o patrocinador da ideia.','Criar um perfil único para pessoas com necessidades muito diferentes.'],
+          theory:'Customer Journey Mapping e Value Proposition Canvas. O mapa de jornada expõe fricções por etapa, e o perfil do usuário organiza jobs, dores e ganhos.',url:'https://www.strategyzer.com/library/the-value-proposition-canvas',reference:'Value Proposition Canvas / Strategyzer',deliverable:'mapa AS IS e matriz de públicos prioritários.'},
+        'Três evidências complementares':{
+          action:'triangular fontes independentes',
+          doing:['Usar entrevistas para compreender causas e contexto.','Usar amostra adequada e dados operacionais para estimar alcance e impacto.','Registrar onde as fontes convergem e onde entram em conflito.'],
+          avoid:['Usar relatos qualitativos para estimar a prevalência populacional.','Concluir que uma amostra grande é necessariamente representativa.'],
+          theory:'Mixed-Methods Research. Métodos qualitativos e quantitativos respondem a perguntas diferentes e podem se complementar.',url:'https://www.nngroup.com/articles/mixed-methods-research/',reference:'Mixed-Methods Research / NN/g',deliverable:'matriz de evidências por hipótese, fonte e nível de confiança.'},
+        'Pesquisa qualitativa':{
+          action:'investigar episódios reais',
+          doing:['Planejar perfis e perguntas abertas com UX/research.','Pedir que a pessoa relate uma ocorrência recente passo a passo.','Investigar comportamento, contorno atual, consequência e linguagem do usuário.'],
+          avoid:['Perguntar “Você gostaria da Jornada Única?” antes de entender a dor.','Contar entrevistas como se fossem uma pesquisa estatística.'],
+          theory:'The Mom Test e entrevistas baseadas em histórias. Perguntas sobre fatos do passado reduzem respostas de cortesia e promessas vagas.',url:'https://www.momtestbook.com/',reference:'The Mom Test / Rob Fitzpatrick',deliverable:'notas de episódios com evidências, sem inferir prevalência.'},
+        'Roteiro de entrevista':{
+          action:'conduzir conversa sem indução',
+          doing:['Abrir com contexto e pedir o último episódio real.','Acompanhar com “O que aconteceu depois?” e “Pode mostrar como fez?”.','Encerrar solicitando exemplos e novos perfis para a pesquisa.'],
+          avoid:['Apresentar uma tela e perguntar se a pessoa gostou antes do discovery.','Trocar perguntas sobre comportamento por opiniões hipotéticas.'],
+          theory:'Continuous Customer Interviews, de Teresa Torres, e The Mom Test. A entrevista baseada em história revela necessidades no contexto.',url:'https://www.producttalk.org/cdh-book-club-april-2026/',reference:'Customer Interviews / Product Talk',deliverable:'registro estruturado do episódio, obstáculos e consequências.'},
+        'Síntese qualitativa':{
+          action:'agrupar relatos em oportunidades',
+          doing:['Criar uma unidade de análise por episódio e manter o vínculo à fonte.','Agrupar observações similares por tema, etapa e perfil.','Separar fato, interpretação e hipótese; depois definir como quantificar.'],
+          avoid:['Converter a fala de um entrevistado diretamente em requisito de sistema.','Dizer “75% dos usuários” porque 9 de 12 entrevistados citaram uma dor.','Ignorar evidências que contradizem a hipótese.'],
+          theory:'Affinity Diagramming agrupa observações em temas. Jobs to Be Done formula o progresso procurado; o Interview Snapshot preserva contexto do episódio.',url:'https://www.nngroup.com/articles/affinity-diagram/',reference:'Affinity Diagramming / NN/g',deliverable:'matriz episódio → tema → oportunidade → pergunta a validar.'},
+        'Pesquisa quantitativa':{
+          action:'dimensionar o problema com amostra',
+          doing:['Definir universo, segmentos e período de referência.','Planejar amostragem e taxa de resposta com especialista.','Medir ocorrência, frequência, severidade e impacto; conferir com telemetria.'],
+          avoid:['Divulgar uma porcentagem geral obtida só com respondentes voluntários.','Perguntar apenas se as pessoas “gostariam de um novo sistema”.'],
+          theory:'Amostragem e inferência estatística. Seleção da amostra, não resposta e cobertura afetam a validade de uma estimativa.',url:'https://www.nngroup.com/articles/convenience-vs-probability-sampling/',reference:'Sampling Methods / NN/g',deliverable:'estimativa segmentada do alcance da dor com limitações documentadas.'},
+        'Calculadora de amostra':{
+          action:'explicitar premissas estatísticas',
+          doing:['Escolher confiança e precisão compatíveis com a decisão.','Informar o universo elegível quando conhecido.','Revisar desenho, estratos e não resposta com pesquisa e dados.'],
+          avoid:['Achar que “385 respostas” corrigem viés de seleção.','Usar margem de erro probabilística em amostra de conveniência como se fosse aleatória.'],
+          theory:'Intervalos de confiança para proporções. A fórmula exibida supõe amostragem aleatória simples e p=0,5 para planejamento conservador.',url:'https://www.nngroup.com/articles/confidence-interval/',reference:'Confidence Intervals / NN/g',deliverable:'plano de pesquisa com cálculo e premissas revisadas.'},
+        'Triangulação em prática':{
+          action:'confrontar sinais e contraexemplos',
+          doing:['Relacionar frases de entrevistas aos indicadores operacionais.','Verificar se o survey cobriu perfis e períodos comparáveis.','Decidir qual hipótese continua incerta e necessita de novo teste.'],
+          avoid:['Tratar números fictícios como resultados da Jornada Única.','Confundir evidência de dor com prova de que a solução proposta terá adoção.'],
+          theory:'Métodos mistos e triangulação. Convergência de fontes pode fortalecer explicações, mas não elimina vieses de mensuração.',url:'https://www.nngroup.com/articles/mixed-methods-research/',reference:'Mixed Methods / NN/g',deliverable:'quadro de evidências que sustentam, contradizem e deixam dúvidas.'},
+        'Priorização de oportunidades':{
+          action:'priorizar dores antes de ideias',
+          doing:['Escrever um resultado desejado mensurável no topo da árvore.','Agrupar oportunidades reveladas pelas pesquisas.','Ligar possíveis soluções a oportunidades e testar hipóteses críticas.'],
+          avoid:['Desenhar uma árvore que só tenha uma solução, já decidida.','Priorizar funcionalidades por preferência pessoal sem conexão com o resultado.'],
+          theory:'Opportunity Solution Tree, de Teresa Torres. A árvore mostra conexões entre outcome, oportunidades, soluções e experimentos.',url:'https://www.producttalk.org/discovering-solutions/',reference:'Opportunity Solution Tree / Product Talk',deliverable:'árvore priorizada com oportunidades sustentadas por dados.'},
+        'Novo produto ou outra intervenção?':{
+          action:'comparar alternativas reais',
+          doing:['Desenhar pelo menos uma alternativa sem criar produto novo.','Estimar impacto, custo total, tempo de entrega e riscos de cada opção.','Recomendar a solução proporcional à dor, mesmo que seja ajuste de processo.'],
+          avoid:['Tratar “criar Jornada Única” como única possibilidade.','Confundir baixa adesão causada por treinamento com falta de ferramenta.'],
+          theory:'Discovery orientado a resultado e análise de proposta de valor. A alternativa preferida precisa demonstrar uma relação melhor entre valor e risco.',url:'https://www.svpg.com/commercial-vs-internal-products/',reference:'Internal Products / SVPG',deliverable:'comparativo explícito entre processo, ferramenta existente, automação e produto novo.'},
+        'Quatro riscos de produto':{
+          action:'convocar especialistas para reduzir riscos',
+          doing:['Validar valor com público usuário e patrocínio.','Testar tarefas reais de usabilidade com UX.','Incluir engenharia, risco, dados e privacidade na avaliação inicial.'],
+          avoid:['Assumir que viabilidade técnica equivale a valor para o usuário.','Adiar privacidade e governança para depois de desenvolver.'],
+          theory:'Os quatro riscos de Marty Cagan: valor, usabilidade, viabilidade técnica e viabilidade de negócio.',url:'https://www.svpg.com/four-big-risks/',reference:'The Four Big Risks / SVPG',deliverable:'registro de riscos, responsáveis e evidências necessárias.'},
+        'Experimentos antes do MVP':{
+          action:'testar a suposição mais arriscada',
+          doing:['Selecionar a incerteza que mais ameaça o investimento.','Escolher experimento proporcional, como protótipo ou concierge autorizado.','Definir métrica, limiar de sucesso e critério de parada antes de executar.'],
+          avoid:['Usar apenas elogio de usuários como métrica de valor.','Montar piloto grande sem controlar custo e risco.'],
+          theory:'Lean Startup e Testing Business Ideas. Experimentos são desenhados para gerar evidências sobre hipóteses explícitas.',url:'https://www.strategyzer.com/library/designing-strong-experiments',reference:'Designing Strong Experiments / Strategyzer',deliverable:'cartão de experimento com hipótese, método, métrica e decisão.'},
+        'MVP e métricas':{
+          action:'medir resultado de um recorte real',
+          doing:['Definir um perfil, uma etapa e uma mudança de comportamento esperada.','Registrar linha de base e instrumentos de medição antes do piloto.','Comparar resultado e guardrails, incluindo erros e exceções.'],
+          avoid:['Medir sucesso somente pelo lançamento do MVP.','Comemorar queda de tempo enquanto aumentam falhas ou retrabalho.'],
+          theory:'Build–Measure–Learn, de Eric Ries, e medidas de outcome. O MVP serve para aprender com menor custo e risco possível.',url:'https://theleanstartup.com/book',reference:'The Lean Startup / Eric Ries',deliverable:'scorecard com resultado observado, guardrails e recomendação.'},
+        'Decisão de investimento':{
+          action:'explicitar o que falta para decidir',
+          doing:['Exigir evidência rastreável para cada caixa do checklist.','Separar incertezas críticas de detalhes que podem esperar.','Apresentar opções: avançar com piloto, pesquisar mais, pivotar ou encerrar.'],
+          avoid:['Marcar um critério porque alguém “tem certeza”.','Transformar checklist didático em aprovação automática.'],
+          theory:'Evidence-based decision making e Testing Business Ideas: qualidade da evidência e hipótese crítica informam decisão de investimento.',url:'https://www.strategyzer.com/library/how-strong-is-your-innovation-evidence',reference:'How Strong is Your Evidence? / Strategyzer',deliverable:'recomendação fundamentada e lacunas para próximos testes.'},
+        'Plano de discovery em quatro semanas':{
+          action:'organizar dono, prazo e entregáveis',
+          doing:['Definir responsáveis por entrevistas, dados, UX e avaliação técnica.','Agendar sínteses semanais para incorporar novos aprendizados.','Encerrar o ciclo com recomendação e próximos experimentos.'],
+          avoid:['Executar entrevistas sem saber qual decisão elas informarão.','Tratar quatro semanas como prazo fixo mesmo se a pesquisa exigir mais.'],
+          theory:'Continuous Discovery Habits: pesquisa e teste de suposições como rotina, ligados a resultados.',url:'https://www.producttalk.org/getting-started-with-discovery/',reference:'Getting Started with Discovery / Product Talk',deliverable:'plano de discovery com hipóteses, responsáveis, marcos e decisões.'}
+      };
+      const examples={
+        'Do problema ao aprendizado':{
+          context:'Cenário fictício: a equipe percebe retrabalho quando uma solicitação passa de uma etapa para outra.',
+          steps:[['Enquadrar','Escrever: “Queremos reduzir retrabalho na conclusão de solicitações”.'],['Explorar','Entrevistar executores e observar como ocorre a passagem de contexto.'],['Dimensionar','Medir quantos casos voltam para correção e quanto tempo é perdido.'],['Testar','Comparar um fluxo simplificado com o atual antes de ampliar o investimento.']],
+          output:'Uma trilha de decisões: dor observada, tamanho da oportunidade, teste e métrica de resultado.'},
+        'O papel da pessoa de Produto':{
+          context:'Uma liderança pede: “Precisamos lançar a Jornada Única”. O PM precisa organizar uma descoberta compartilhada.',
+          steps:[['Fazer a pergunta certa','“Qual problema concreto precisamos reduzir, para qual público?”'],['Convidar parceiros','UX investiga experiência; dados analisa incidência; engenharia avalia integração; processo descreve exceções.'],['Unificar as evidências','Montar uma página com hipótese, fatos, lacunas e próximos testes.']],
+          output:'Um problem brief compartilhado, com decisão a tomar, responsáveis e evidências necessárias.'},
+        'O fluxo decisório do PM':{
+          context:'EXEMPLO FICTÍCIO: alguém propõe criar a “Jornada Única” porque pessoas repetem informações em solicitações.',
+          steps:[['01 — Definir problema','Hipótese: pessoas executoras redigitam dados quando uma solicitação passa de etapa; isso causa retrabalho.'],['02 — Entrevistar e observar','Observar a última solicitação, registrar onde houve repetição e mapear contornos sem induzir respostas.'],['03 — Dimensionar','Cruzar incidência de reaberturas nos sistemas, pesquisa quantitativa e tempo por caso, com os vieses documentados.'],['04 — Comparar opções','Contrastar retirar campo duplicado, integrar sistemas existentes e criar uma nova interface.'],['05 — Testar a melhor opção','Fazer protótipo e teste de tarefa, mais análise técnica e de custo. Definir critério antes.'],['06 — Decidir','Se integração simples gera benefício semelhante por menor custo, recomendar melhoria existente — NÃO aprovar produto novo.']],
+          output:'Recomendação hipotética: corrigir integração existente, medir redução de redigitação e reavaliar necessidade de produto novo se a fricção persistir.'},
+        'As cinco hipóteses':{
+          context:'Hipótese fictícia: a repetição de informações entre etapas causa retrabalho relevante.',
+          steps:[['Escrever a hipótese','“Quando uma solicitação muda de etapa, parte dos executores precisa redigitar dados.”'],['Definir como testar','Entrevistas mostram onde acontece; logs e survey dimensionam a incidência.'],['Definir contraprova','Se a repetição ocorrer raramente ou não produzir perda relevante, a hipótese enfraquece.']],
+          output:'H1: dor e público; H2: frequência e impacto; H3: alternativas; H4: adoção; H5: necessidade de um produto novo.'},
+        'Pessoas e jornada atual':{
+          context:'A mesma solicitação passa por um solicitante, uma pessoa executora e uma equipe que valida o resultado.',
+          steps:[['Mapear papéis','Criar três linhas separadas: quem inicia, quem executa, quem aprova ou recebe.'],['Desenhar o fluxo atual','Registrar “iniciar → conferir dados → encaminhar → corrigir exceção → concluir”.'],['Marcar fricções','Indicar em qual transição há espera, perda de contexto ou retrabalho.']],
+          output:'Mapa AS IS com perfis, passos, sistemas, esperas, exceções e evidências por etapa.'},
+        'Três evidências complementares':{
+          context:'Queremos saber se “precisar informar o mesmo dado novamente” é uma dor relevante.',
+          steps:[['Qualitativo','Perguntar: “Conte a última vez em que precisou repetir dados. O que aconteceu?”'],['Quantitativo','Estimar proporção de casos e tempo perdido, com universo e amostra definidos.'],['Comportamental','Verificar nos registros de sistema se houve reabertura ou redigitação.']],
+          output:'Quadro com causa provável, alcance estimado e comportamento observado, destacando divergências.'},
+        'Pesquisa qualitativa':{
+          context:'Vamos entrevistar pessoas que participam de partes diferentes da jornada, sem apresentar a solução proposta.',
+          steps:[['Recrutar','Selecionar pessoas com episódios recentes, incluindo casos simples e complexos.'],['Perguntar','“Na última solicitação, em qual momento teve que refazer algo?”'],['Aprofundar','“Mostre como resolveu, quanto tempo levou e o que aconteceu depois.”'],['Registrar','Anotar episódio, etapa, contorno e impacto, sem registrar dados sensíveis desnecessários.']],
+          output:'Uma ficha por entrevista com evidências e citações contextualizadas, preservando privacidade.'},
+        'Roteiro de entrevista':{
+          context:'Trecho fictício de uma conversa de discovery com uma pessoa executora.',
+          steps:[['Pergunta aberta','PM: “Me conte sobre a última solicitação que exigiu retrabalho.”'],['Resposta observada','Pessoa: “O dado estava em outro sistema, então precisei digitá-lo novamente.”'],['Aprofundamento','PM: “Quando foi isso? O que aconteceu se você não digitasse?”'],['Registro','Fato: redigitação no caso relatado. Hipótese: transferência de dados insuficiente.']],
+          output:'Relato verificável com contexto, ação executada, consequência e próxima pergunta de pesquisa.'},
+        'Síntese qualitativa':{
+          context:'Três relatos fictícios de pessoas diferentes: “digitei de novo”, “copiei para planilha” e “pedi o dado por mensagem”.',
+          steps:[['Extrair observações','Cada relato vira uma nota separada, associada ao episódio e ao perfil.'],['Agrupar por afinidade','Os três relatos podem compor o tema “contexto não acompanha a solicitação”.'],['Expressar a necessidade','JTBD: “Quando assumo uma etapa, preciso receber informações confiáveis para concluí-la sem retrabalho.”'],['Definir próxima prova','Conferir logs de transferência e quantificar incidência por tipo de solicitação.']],
+          output:'Mapa de afinidades + declaração JTBD + hipótese mensurável, sem inferir prevalência a partir das entrevistas.'},
+        'Pesquisa quantitativa':{
+          context:'Depois de descobrir uma dor qualitativamente, precisamos estimar seu tamanho na população elegível.',
+          steps:[['Definir universo','Exemplo: pessoas que concluíram pelo menos uma solicitação no último mês.'],['Escrever perguntas objetivas','“Quantas das suas últimas 10 solicitações exigiram redigitação?” com opções numéricas.'],['Planejar amostra','Distribuir convites segundo os perfis reais e observar não resposta.'],['Analisar recortes','Comparar taxa de retrabalho por perfil, etapa e complexidade, com incerteza reportada.']],
+          output:'Tabela por segmento com incidência estimada, tamanho de amostra, intervalo e principais vieses.'},
+        'Calculadora de amostra':{
+          context:'Exemplo didático: universo de 800 pessoas elegíveis, 95% de confiança e margem de ±5 pontos percentuais.',
+          steps:[['Configurar','Escolher 95%, ±5 p.p. e preencher N=800 na calculadora do slide.'],['Ler o resultado','A correção finita resulta em aproximadamente 260 respostas completas, nas premissas descritas.'],['Planejar coleta','Ajustar o número de convites conforme resposta esperada e segmentos necessários.'],['Checar validade','Uma amostra autoselecionada não ganha representatividade apenas por atingir 260 respostas.']],
+          output:'Plano amostral revisado por pesquisa/dados, incluindo critérios de elegibilidade e não resposta.'},
+        'Triangulação em prática':{
+          context:'Todos os números a seguir são fictícios e servem para treinar a interpretação.',
+          steps:[['Ler a entrevista','9 de 12 pessoas entrevistadas citaram retrabalho. Isso é um achado daquela amostra.'],['Ler a pesquisa','58% de 320 respostas relataram retrabalho; é preciso avaliar a seleção e a precisão.'],['Ler a operação','Nos casos afetados, tempo adicional mediano de 21 minutos.'],['Concluir com cautela','A dor parece relevante, mas ainda não há prova de que a Jornada Única seja a melhor solução.']],
+          output:'Uma decisão sobre o próximo experimento, acompanhada das limitações de cada evidência.'},
+        'Priorização de oportunidades':{
+          context:'O objetivo ilustrativo é reduzir a conclusão de solicitações com retrabalho.',
+          steps:[['Definir outcome','“Reduzir a proporção de solicitações concluídas com retrabalho”.'],['Mapear oportunidades','Repetição de dados; transferência incompleta de contexto; exceções pouco claras.'],['Escolher uma oportunidade','Priorizar a de maior impacto verificável e que o time consegue testar.'],['Gerar opções','Integração de campos, mudança de fluxo ou protótipo de jornada integrada.']],
+          output:'Árvore de oportunidades com conexão explícita entre resultado, dor e teste.'},
+        'Novo produto ou outra intervenção?':{
+          context:'A dor da redigitação foi confirmada. O nome Jornada Única ainda não define a resposta.',
+          steps:[['Alternativa de processo','Eliminar uma etapa que solicita novamente a mesma informação.'],['Alternativa no legado','Integrar dois campos na solução já existente.'],['Alternativa de produto novo','Criar experiência unificada, se as duas primeiras forem insuficientes.'],['Comparar','Estimar benefício, custo de manutenção, dependências, risco e tempo até o valor.']],
+          output:'Matriz comparativa das opções e justificativa da recomendação, inclusive se for não construir.'},
+        'Quatro riscos de produto':{
+          context:'Para uma jornada integrada hipotética, uma equipe multifuncional avalia quatro incertezas.',
+          steps:[['Valor','As pessoas preferem o novo fluxo e resolvem uma dor importante?'],['Usabilidade','Conseguem concluir a tarefa com protótipo, sem instruções extras?'],['Técnica','Os dados podem circular entre os sistemas com disponibilidade e segurança?'],['Negócio','O benefício sustenta custo, operação, governança e controles?']],
+          output:'Registro de risco, evidência disponível, lacuna, responsável e teste indicado.'},
+        'Experimentos antes do MVP':{
+          context:'Hipótese fictícia: transferir automaticamente o contexto reduz retrabalho.',
+          steps:[['Desenhar protótipo','Representar uma única transferência de etapa com os campos já preenchidos.'],['Definir teste','Pedir que pessoas usuárias concluam a tarefa e observar dúvidas sem dar dicas.'],['Estabelecer critério','Definir previamente que comportamento e que erro indicariam necessidade de revisão.'],['Aprender','Ajustar fluxo e repetir com participantes relevantes antes de investir em integração.']],
+          output:'Cartão de experimento com hipótese, método, participantes, evidências e decisão.'},
+        'MVP e métricas':{
+          context:'Piloto fictício com um grupo elegível e uma etapa específica, comparado ao processo atual.',
+          steps:[['Registrar base','Medir retrabalho, tempo e erros no fluxo atual.'],['Lançar recorte mínimo','Liberar apenas a etapa integrada para um grupo autorizado.'],['Medir outcome','Comparar taxa de conclusão sem retrabalho e tempo por caso.'],['Observar guardrails','Verificar falhas, incidentes, casos excepcionais e reclamações.']],
+          output:'Scorecard do piloto e recomendação com incerteza e efeitos colaterais documentados.'},
+        'Decisão de investimento':{
+          context:'Em uma reunião fictícia, o grupo tem evidência de dor e impacto, mas ainda não testou alternativas.',
+          steps:[['Marcar o que existe','Selecionar no checklist apenas dor documentada e dimensionamento confiável.'],['Identificar lacuna','Falta comparar opções e demonstrar que uma solução nova seria usada.'],['Definir próximo teste','Prototipar a melhoria mais promissora e avaliar riscos técnicos.'],['Decidir','Recomendar “pesquisar/testar mais”, em vez de aprovar desenvolvimento completo.']],
+          output:'Registro de go, pivot, no-go ou pesquisa adicional, com evidência e responsável.'},
+        'Plano de discovery em quatro semanas':{
+          context:'Plano ilustrativo para iniciar a investigação de uma jornada ainda pouco compreendida.',
+          steps:[['Semana 1','Redigir problem brief, mapa de perfis e perguntas de pesquisa.'],['Semana 2','Realizar entrevistas e organizar casos em um mapa de afinidades.'],['Semana 3','Dimensionar a dor com registros e amostra planejada.'],['Semana 4','Comparar alternativas, testar hipótese prioritária e documentar recomendação.']],
+          output:'Uma página de decisão com evidências, alternativas, riscos, experimento e próximos responsáveis.'}
+      };
+      for(const slide of slides){
+        const title=slide.dataset.title,guide=guideData[title],example=examples[title],source=slide.querySelector('.source');
+        if(!guide&&!example&&!source)continue;
+        const actions=document.createElement('div');actions.className='slide-actions';
+        function addAction(css,label,mode){const cue=document.createElement('button');cue.className=css;cue.type='button';cue.textContent=label;cue.addEventListener('click',()=>openModal(mode));actions.appendChild(cue);}
+        if(guide)addAction('pm-cue',`✦ PM: ${guide.action}`,'guide');
+        if(example)addAction('example-cue','▷ Ver exemplo','example');
+        if(source||guide)addAction('sources-cue','ⓘ Fontes','sources');
+        slide.appendChild(actions);
+      }
+      let modalMode='guide';
+      const modalModes=['guide','example','sources'];
+      function modeAvailable(mode){const slide=slides[current];return mode==='guide'?!!guideData[slide.dataset.title]:mode==='example'?!!examples[slide.dataset.title]:!!(slide.querySelector('.source')||guideData[slide.dataset.title]);}
+      function selectModalTab(mode){
+        if(!modalModes.includes(mode)||!modeAvailable(mode))return;
+        modalMode=mode;
+        for(const tab of document.querySelectorAll('.modal-tab')){const active=tab.dataset.mode===mode;tab.setAttribute('aria-selected',String(active));tab.disabled=!modeAvailable(tab.dataset.mode);}
+        for(const name of modalModes)$(name==='guide'?'guidePage':name==='example'?'examplePage':'sourcesPage').classList.toggle('active',name===mode);
+      }
+      function renderSupplemental(){
+        const slide=slides[current],title=slide.dataset.title,guide=guideData[title],example=examples[title],source=slide.querySelector('.source');
+        $('guideButton').disabled=!guide;$('exampleButton').disabled=!example;$('guideTitle').textContent=title;
+        if(guide){
+          for(const [id,items] of [['guideDo',guide.doing],['guideAvoid',guide.avoid]]){
+            const list=$(id);list.replaceChildren();for(const item of items){const li=document.createElement('li');li.textContent=item;list.appendChild(li);}
+          }
+          $('guideTheory').textContent=guide.theory;$('guideLink').href=guide.url;$('guideLink').textContent=`Aprofundar: ${guide.reference} ↗`;
+          $('guideDeliverable').textContent=guide.deliverable;$('sourcesTheory').textContent=guide.theory;
+          $('sourcesLink').href=guide.url;$('sourcesLink').textContent=`Fonte original: ${guide.reference} ↗`;
+        }else{$('sourcesTheory').textContent='Consulte os links desta apresentação e a bibliografia final.';$('sourcesLink').removeAttribute('href');$('sourcesLink').textContent='';}
+        if(example){
+          $('exampleContext').textContent=example.context;$('exampleOutput').textContent=example.output;
+          const list=$('exampleSteps');list.replaceChildren();example.steps.forEach(([step,detail],i)=>{
+            const li=document.createElement('li');const number=document.createElement('span');number.className='example-count';number.textContent=String(i+1);
+            const body=document.createElement('div');const b=document.createElement('b');b.textContent=step;const p=document.createElement('span');p.textContent=detail;body.append(b,p);li.append(number,body);list.appendChild(li);
+          });
+        }
+        $('slideSources').innerHTML=source?source.innerHTML:'Use as referências metodológicas desta etapa e a bibliografia ao final.';
+        if(guideOverlay.classList.contains('open')){
+          const fallback=modeAvailable(modalMode)?modalMode:(guide?'guide':example?'example':'sources');
+          if(modeAvailable(fallback))selectModalTab(fallback);else closeModal();
+        }
+      }
+      function openModal(mode){if(!modeAvailable(mode))return;renderSupplemental();selectModalTab(mode);guideOverlay.classList.add('open');guideOverlay.setAttribute('aria-hidden','false');$('closeGuide').focus();}
+      function closeModal(){guideOverlay.classList.remove('open');guideOverlay.setAttribute('aria-hidden','true');}
+      function fitSlide(){
+        const slide=slides[current];if(['Abertura','Encerramento'].includes(slide.dataset.title))return;
+        slide.classList.remove('fit-1','fit-2','fit-3');slide.style.removeProperty('--fit-zoom');
+        function bottomExtent(){const rect=slide.getBoundingClientRect(),scale=rect.width/1600||1;return Math.max(0,...[...slide.children].filter(el=>!el.matches('.speaker-note,.slide-actions,.source')).map(el=>(el.getBoundingClientRect().bottom-rect.top)/scale));}
+        if(bottomExtent()>823)slide.classList.add('fit-1');
+        if(bottomExtent()>823){slide.classList.remove('fit-1');slide.classList.add('fit-2');}
+        if(bottomExtent()>823){const excess=bottomExtent();slide.classList.add('fit-3');slide.style.setProperty('--fit-zoom',String(Math.max(.82,Math.min(.94,823/excess*.94))));}
+      }
+      function setTheme(theme){
+        const mode=theme==='dark'?'dark':'light';document.body.dataset.theme=mode;
+        $('themeButton').textContent=mode==='dark'?'☼ Claro':'☾ Escuro';$('themeButton').setAttribute('aria-pressed',String(mode==='dark'));
+        try{localStorage.setItem('jornada-unica-theme',mode)}catch(_){}fitSlide();
+      }
+      function toggleTheme(){setTheme(document.body.dataset.theme==='dark'?'light':'dark');}
+      function scaleDeck(){const factor=Math.min(viewport.clientWidth/1600,viewport.clientHeight/900);deck.style.transform=`scale(${Math.max(.1,factor)})`;}
+      function showSlide(index){
+        current=Math.max(0,Math.min(slides.length-1,index));
+        slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',String(i!==current));});
+        $('prev').disabled=current===0;$('next').disabled=current===slides.length-1;
+        $('pageCount').textContent=`${String(current+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;
+        $('progressBar').style.width=`${(current+1)/slides.length*100}%`;
+        $('slideName').textContent=slides[current].dataset.title;
+        $('notesText').innerHTML='<p>'+slides[current].querySelector('.speaker-note').textContent+'</p>';
+        renderSupplemental();fitSlide();
+        document.title=`${slides[current].dataset.title} | Jornada Única`;
+        history.replaceState(null,'','#'+(current+1));
+      }
+      // Cada bloco do fluxograma leva à etapa com roteiro do PM e exemplo.
+      document.querySelectorAll('.flow-step[data-target]').forEach(button=>button.addEventListener('click',()=>{
+        const target=slides.find(slide=>slide.dataset.title===button.dataset.target);
+        if(!target)return;
+        if(document.body.classList.contains('mobile-reader'))target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+        else showSlide(slides.indexOf(target));
+      }));
+      function toggleNotes(force){notes.classList.toggle('open',force===undefined?!notes.classList.contains('open'):force);}
+      function toggleOutline(force){outline.classList.toggle('open',force===undefined?!outline.classList.contains('open'):force);}
+      $('prev').addEventListener('click',()=>showSlide(current-1));$('next').addEventListener('click',()=>showSlide(current+1));
+      $('notesButton').addEventListener('click',()=>toggleNotes());$('closeNotes').addEventListener('click',()=>toggleNotes(false));
+      $('guideButton').addEventListener('click',()=>openModal('guide'));
+      $('exampleButton').addEventListener('click',()=>openModal('example'));
+      $('closeGuide').addEventListener('click',closeModal);
+      guideOverlay.addEventListener('click',ev=>{if(ev.target===guideOverlay)closeModal()});
+      document.querySelectorAll('.modal-tab').forEach(tab=>tab.addEventListener('click',()=>selectModalTab(tab.dataset.mode)));
+      $('themeButton').addEventListener('click',toggleTheme);
+      $('overviewButton').addEventListener('click',()=>toggleOutline());$('printButton').addEventListener('click',()=>window.print());
+      $('fullButton').addEventListener('click',()=>{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.();}else{document.exitFullscreen?.();}});
+      const outlineGrid=$('outlineGrid');slides.forEach((slide,i)=>{const btn=document.createElement('button');btn.innerHTML=`<small>SLIDE ${String(i+1).padStart(2,'0')}</small>${slide.dataset.title}`;btn.addEventListener('click',()=>{showSlide(i);toggleOutline(false)});outlineGrid.appendChild(btn)});
+      document.addEventListener('keydown',ev=>{const tag=(ev.target.tagName||'').toLowerCase();if(['input','select','textarea'].includes(tag))return;if(ev.key==='Escape'){closeModal();toggleOutline(false);toggleNotes(false);return;}if(guideOverlay.classList.contains('open')||outline.classList.contains('open'))return;if(['ArrowRight','ArrowDown','PageDown',' '].includes(ev.key)){ev.preventDefault();showSlide(current+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(ev.key)){ev.preventDefault();showSlide(current-1)}if(ev.key.toLowerCase()==='g'){toggleOutline()}if(ev.key.toLowerCase()==='m'&&!$('guideButton').disabled){openModal('guide')}if(ev.key.toLowerCase()==='e'&&!$('exampleButton').disabled){openModal('example')}if(ev.key.toLowerCase()==='t'){toggleTheme()}if(ev.key.toLowerCase()==='n'){toggleNotes()}if(ev.key.toLowerCase()==='p'){window.print()}if(ev.key.toLowerCase()==='f'){$('fullButton').click();}});
+      function updateSample(){
+        const z=Number($('confidence').value),e=Number($('margin').value),N=Number($('population').value),p=.5;
+        let n=(z*z*p*(1-p))/(e*e);if(N>0)n=(N*n)/(N+n-1);
+        $('sampleResult').textContent=Math.ceil(n).toLocaleString('pt-BR');
+        $('sampleExplain').textContent=(N>0?`População N=${Math.floor(N).toLocaleString('pt-BR')}. Correção finita aplicada. `:'População grande ou desconhecida. ')+`Premissa conservadora p=50%, seleção probabilística simples e respostas completas. Não corrige vieses nem perdas de coleta.`;
+      }
+      ['confidence','margin','population'].forEach(id=>$(id).addEventListener('input',()=>{updateSample();fitSlide()}));updateSample();
+      const gateItems=[...document.querySelectorAll('.gate-item')];function updateGate(){const count=gateItems.filter(b=>b.getAttribute('aria-pressed')==='true').length;const messages=['Começar pelo entendimento da dor','Explorar a dimensão do problema','Comparar alternativas de intervenção','Testar a hipótese crítica de valor','Revisar os riscos e a governança','Há base para discutir um piloto controlado'];$('gateMessage').textContent=messages[count];$('gateDetail').textContent=`${count} de 5 evidências marcadas. ${count===5?'A recomendação depende da qualidade dos dados e dos controles formais.':'Priorize a lacuna de maior risco antes de ampliar investimento.'}`;}
+      gateItems.forEach(item=>item.addEventListener('click',()=>{const now=item.getAttribute('aria-pressed')!=='true';item.setAttribute('aria-pressed',String(now));item.querySelector('.check').textContent=now?'✓':'';updateGate()}));$('resetGate').addEventListener('click',()=>{gateItems.forEach(item=>{item.setAttribute('aria-pressed','false');item.querySelector('.check').textContent=''});updateGate()});updateGate();
+      window.addEventListener('resize',scaleDeck);document.addEventListener('fullscreenchange',scaleDeck);scaleDeck();
+      const hash=Number(location.hash.slice(1));showSlide(Number.isInteger(hash)&&hash>0?hash-1:0);
+      let savedTheme='light';try{savedTheme=localStorage.getItem('jornada-unica-theme')||'light'}catch(_){}setTheme(savedTheme);
+    })();
+  </script>
+</body>
+</html>
